@@ -1,0 +1,305 @@
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "Rime",
+          "type": "text"
+        },
+        {
+          "text": " is a headless CMS built on top of ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "SvelteKit",
+          "type": "text"
+        },
+        {
+          "text": ", designed with a focus on flexibility, ease of configuration, user-friendly administration, and performance. It’s made for developers who want to concentrate on creativity rather than fighting with the tools.",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "id": "9bbde299-4c9c-45e9-9680-f6f391fd2058",
+        "title": "Installation",
+        "_type": "pages"
+      },
+      "resource": {
+        "id": "9bbde299-4c9c-45e9-9680-f6f391fd2058",
+        "attributes": {
+          "icon": null,
+          "longTitle": null,
+          "summary": "Install Rime and start building"
+        },
+        "url": "http://localhost:5173/docs/installation"
+      },
+      "type": "resource"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Why another CMS ?",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "text": "The main goal of ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "Rime",
+          "type": "text"
+        },
+        {
+          "text": " is to provide instant access to a flexible admin panel, with all the essential tools to build your project, including:",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Built-in ",
+                  "type": "text"
+                },
+                {
+                  "marks": [
+                    {
+                      "attrs": {
+                        "class": null,
+                        "href": "/docs/configuration/i18n",
+                        "rel": "noopener noreferrer nofollow",
+                        "target": "_self"
+                      },
+                      "type": "link"
+                    }
+                  ],
+                  "text": "i18n",
+                  "type": "text"
+                },
+                {
+                  "text": " support",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Version system",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "A wide variety of ",
+                  "type": "text"
+                },
+                {
+                  "marks": [
+                    {
+                      "attrs": {
+                        "class": null,
+                        "href": "/docs/fieds",
+                        "rel": "noopener noreferrer nofollow",
+                        "target": "_self"
+                      },
+                      "type": "link"
+                    }
+                  ],
+                  "text": "fields",
+                  "type": "text"
+                },
+                {
+                  "text": ", including blocks and nested arrays",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "A flexible, intuitive rich-text editor",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Headless architecture, so you can build your front-end without limitations",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Automatic API endpoint generation",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Great types supports, from your database schema to your front-end",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "text": "Smooth, developer-friendly workflow",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "listItem"
+        }
+      ],
+      "type": "bulletList"
+    },
+    {
+      "content": [
+        {
+          "text": "While some existing tools offer similar features — with varying levels of configuration complexity — none of them truly met my needs without compromise. ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "Rime",
+          "type": "text"
+        },
+        {
+          "text": " bridges that gap, combining the full power of ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "SvelteKit",
+          "type": "text"
+        },
+        {
+          "text": " and ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "text": "Svelte",
+          "type": "text"
+        },
+        {
+          "text": ", while providing all the features a CMS needs.",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "How it works ?",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    }
+  ],
+  "type": "doc"
+}

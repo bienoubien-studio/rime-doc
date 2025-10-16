@@ -1,0 +1,26 @@
+.rz-rich-text__editor blockquote[data-type='info'] {
+	background-color: oklch(0.5 0.1 170 / 0.1) !important;
+	position: relative;
+	padding-left: var(--rz-size-8);
+	p {
+		border-left: none;
+	}
+}
+
+.rz-rich-text__editor blockquote[data-type='info']::before {
+	content: '';
+	position: absolute;
+	left: var(--rz-size-4);
+	top: var(--rz-size-5);
+	display: inline-block;
+	width: var(--rz-size-4);
+	height: var(--rz-size-4);
+	--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4m0-4h.01'/%3E%3C/g%3E%3C/svg%3E");
+	background-color: currentColor;
+	-webkit-mask-image: var(--svg);
+	mask-image: var(--svg);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+}

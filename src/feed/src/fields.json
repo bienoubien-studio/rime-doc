@@ -1,0 +1,22 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "id": "d42cb9dd-5cfa-4f43-8efc-4a392300fe3c",
+        "title": "Text",
+        "_type": "pages"
+      },
+      "resource": {
+        "id": "d42cb9dd-5cfa-4f43-8efc-4a392300fe3c",
+        "attributes": {
+          "icon": null,
+          "longTitle": null,
+          "summary": null
+        },
+        "url": "http://localhost:5173/docs/fieds/text"
+      },
+      "type": "resource"
+    }
+  ],
+  "type": "doc"
+}

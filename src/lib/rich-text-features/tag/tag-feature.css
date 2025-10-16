@@ -1,0 +1,11 @@
+.rz-rich-text__editor span.tag-mark {
+	position: relative;
+	padding: var(--rz-size-1) var(--rz-size-2);
+	font-size: 0.5em;
+	border-radius: var(--rz-radius-md);
+	border: 1px solid hsl(var(--rz-gray-6));
+	font-variation-settings: 'wght' 400;
+	display: inline-block;
+	transform: translateY(-0.25em);
+	margin-left: var(--rz-size-2);
+}

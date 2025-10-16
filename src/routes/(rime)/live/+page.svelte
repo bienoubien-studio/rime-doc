@@ -1,0 +1,11 @@
+
+<script lang="ts">
+  import { Live } from '@bienbien/rime/panel/client';
+
+  import config from '../../../lib/+rime.generated/rime.config.js';
+
+  const { data } = $props();
+</script>
+
+
+<Live {data} config={config} />

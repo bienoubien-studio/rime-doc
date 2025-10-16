@@ -1,0 +1,16 @@
+.dropdown-content {
+	background-color: var(--color-bg);
+	z-index: 120;
+	min-width: var(--min-width, 8rem);
+	border-radius: var(--size-1);
+	border: 1px solid var(--color-border);
+	padding: var(--size-1);
+	box-shadow: var(--shadow-xl);
+}
+.dropdown-content:focus {
+	outline: none;
+}
+
+.dropdown-content.align-end {
+	text-align: right;
+}
