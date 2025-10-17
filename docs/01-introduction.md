@@ -16,5 +16,3 @@ The main goal of **Rime** is to provide instant access to a flexible admin panel
 - Smooth, developer-friendly workflow
 
 While some existing tools offer similar features — with varying levels of configuration complexity — none of them truly met my needs without compromise. **Rime** bridges that gap, combining the full power of **SvelteKit** and **Svelte**, while providing all the features a CMS needs.
-
-## How it works ?
