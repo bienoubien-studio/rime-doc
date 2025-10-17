@@ -90,7 +90,7 @@ export default defineConfig({
 5. Create the rime configuration file :
 
 ```ts
-// src/lib/config/rime.config.ts
+// src/lib/+rime/rime.config.ts
 import { rime, Collection } from '$rime/config';
 import { text } from '@bienbien/rime/fields';
 import { sqliteAdapter } from '@bienbien/rime/sqlite'
