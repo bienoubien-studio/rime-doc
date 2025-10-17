@@ -58,7 +58,6 @@ const tagMark: RichTextFeatureMark = {
 	icon: ShieldQuestion,
 	bubbleMenu: {
 		command: ({ editor }) => {
-			console.log(editor);
 			editor.chain().focus().toggleTag().run();
 		}
 	},

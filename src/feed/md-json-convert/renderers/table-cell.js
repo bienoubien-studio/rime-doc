@@ -1,5 +1,8 @@
 /**
  * TableCell node renderer - converts table cell nodes to Markdown table cell content
+ * @param {{type: string, content?: any[]}} node - The table cell node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered table cell content
  */
 
 export const tableCell = (node, renderers) => {
@@ -25,17 +28,18 @@ export const tableCell = (node, renderers) => {
 /**
  * Parses markdown table cell to JSON
  * @param {string} cellText - The cell text content
- * @returns {Object} - The tableCell node
+ * @returns {{type: string, attrs: {colspan: number, colwidth: null, rowspan: number}, content: Array<{type: string, content: Array<{type: string, text: string}>}>}} The tableCell node
  */
 export const parseTableCell = (cellText) => {
 	return {
 		type: 'tableCell',
 		attrs: { colspan: 1, colwidth: null, rowspan: 1 },
-		content: [{ type: 'paragraph', content: [{ type: 'text', text: cellText.trim() }] }]
+		content: [{ type: 'paragraph', content: [{ type: 'text', text: String(cellText || '').trim() }] }]
 	};
 };
 
 /**
  * Checks if this is a table cell (used internally by table parser)
+ * @returns {boolean} Always returns false (only used internally)
  */
 export const matchesTableCell = () => false; // Only used internally

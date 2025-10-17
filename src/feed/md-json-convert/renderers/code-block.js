@@ -1,7 +1,9 @@
 /**
  * CodeBlock node renderer - converts code block nodes to Markdown fenced code blocks
+ * @param {{type: string, attrs?: {language?: string}, content?: any[]}} node - The code block node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered markdown fenced code block
  */
-
 export const codeBlock = (node, renderers) => {
 	const language = node.attrs?.language || '';
 
@@ -27,7 +29,7 @@ export const codeBlock = (node, renderers) => {
  * Parses markdown code block to JSON
  * @param {string[]} lines - Array of markdown lines
  * @param {number} startIndex - Starting line index
- * @returns {Object} - { node: codeBlock node, endIndex: ending line index }
+ * @returns {{node: {type: string, attrs: {language: string}, content: Array<{type: string, text: string}>}, endIndex: number}} Object with codeBlock node and ending line index
  */
 export const parseCodeBlock = (lines, startIndex) => {
 	const line = lines[startIndex];
@@ -52,5 +54,7 @@ export const parseCodeBlock = (lines, startIndex) => {
 
 /**
  * Checks if a line matches this block type
+ * @param {string} line - The line to check
+ * @returns {boolean} Whether the line matches code block format
  */
 export const matchesCodeBlock = (line) => line.trim().startsWith('```');

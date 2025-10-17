@@ -1,15 +1,15 @@
 /**
  * Code mark renderer - converts code marks to inline code formatting
+ * @param {string} text - The text content to wrap in inline code formatting
+ * @returns {string} The text wrapped in markdown inline code syntax
  */
-
 export const code = (text) => `\`${text}\``;
 
 /**
  * Parses markdown inline code to JSON mark
- * @param {string} text - The text content inside the code marks
- * @returns {Object} - The code mark
+ * @returns {{type: string}} The code mark object
  */
-export const parseCodeMark = (text) => {
+export const parseCodeMark = () => {
 	return {
 		type: 'code'
 	};
@@ -18,14 +18,14 @@ export const parseCodeMark = (text) => {
 /**
  * Checks if text contains inline code
  * @param {string} text - The text to check
- * @returns {boolean} - Whether the text contains inline code
+ * @returns {boolean} Whether the text contains inline code
  */
 export const matchesCode = (text) => /`([^`]+)`/.test(text);
 
 /**
  * Extracts code segments from text
  * @param {string} text - The text to parse
- * @returns {Array} - Array of text segments with marks
+ * @returns {Array<{type: string, text: string, marks?: Array<{type: string}>}>} Array of text segments with marks
  */
 export const parseCodeInText = (text) => {
 	const parts = [];

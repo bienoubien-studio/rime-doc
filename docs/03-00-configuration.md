@@ -1,11 +1,12 @@
-If you’ve followed the [installation](/docs/installation) steps correctly, you should already have a `pages` collection and the `$database` property set up.
+If you’ve followed the [installation](/docs/02-installation.md) steps correctly, you should already have a `pages` collection and the `$adapter` property set up.
 
-The configuration is the core of **Rime**, this is where you define how your documents will be structured, localization, panel access configuration, custom API routes and [more](#properties)… The configuration entry **must be located at **`src/lib/config/rime.config.ts`. Here is a basic configuration example :
+The configuration is the core of **Rime**, this is where you configure how your documents will be structured, localization, panel access, custom API routes and [more](#properties)… The configuration entry **must be located at **`src/lib/+rime/rime.config.ts`. Here is a basic configuration example :
 
 ```ts
-// src/lib/config/rime.config.ts
-import { buildConfig, Collection } from '$rime/config';
+// src/lib/+rime/rime.config.ts
+import { rime, Collection } from '$rime/config';
 import { text } from '@bienbien/rime/fields';
+import { sqliteAdapter } from '@bienbien/rime/sqlite'
 
 const Pages = Collection.create('pages', {
   fields: [
@@ -13,8 +14,8 @@ const Pages = Collection.create('pages', {
   ]
 });
 
-export default buildConfig({
-  $database: 'my-app.sqlite'
+export default rime({
+  $adapter: sqliteAdapter('my-app.sqlite')
   collections: [Pages]
 });
 ```
@@ -43,9 +44,9 @@ const Pages = Collection.create('pages', {
 });
 ```
 
-[resource:pages:1efc32fa-d3e8-45b8-81ed-9959be9e007e]
+[resource:pages:collection](/docs/03-01-configuration__collection.md)
 
-[resource:pages:e6a85f13-314f-4fb4-82de-0c66a571af88]
+[resource:pages:areas](/docs/03-02-configuration__areas.md)
 
 ## Properties
 

@@ -1,9 +1,12 @@
 /**
  * InfoBlock node renderer - converts info block nodes to Markdown info blockquotes
+ * @param {{type: string, content?: any[]}} node - The info block node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered markdown info blockquote
  */
 
 export const infoBlock = (node, renderers) => {
-	const content = node.content
+	const content = (node.content || [])
 		.map((child) => {
 			const renderer = renderers[child.type];
 			if (!renderer) {
@@ -25,7 +28,7 @@ export const infoBlock = (node, renderers) => {
  * Parses markdown info block to JSON
  * @param {string[]} lines - Array of markdown lines
  * @param {number} startIndex - Starting line index
- * @returns {Object} - { node: infoBlock node, endIndex: ending line index }
+ * @returns {{node: {type: string, content: Array<{type: string, content: Array<{type: string, text: string, marks?: Array<{type: string}>}>}>}, endIndex: number}} Object with infoBlock node and ending line index
  */
 export const parseInfoBlock = (lines, startIndex) => {
 	const blockContent = [];
@@ -67,9 +70,10 @@ export const parseInfoBlock = (lines, startIndex) => {
 /**
  * Parses text with inline formatting
  * @param {string} text - Text to parse
- * @returns {Object} - Paragraph node with formatted content
+ * @returns {{type: string, content: Array<{type: string, text: string, marks?: Array<{type: string}>}>}} Paragraph node with formatted content
  */
 function parseInlineText(text) {
+	/** @type {Array<{type: string, text: string, marks?: Array<{type: string}>}>} */
 	const textNodes = [];
 	let remainingText = text;
 
@@ -124,13 +128,13 @@ function parseInlineText(text) {
 /**
  * Helper to parse code formatting within text
  * @param {string} text - Text to parse
- * @param {Array} textNodes - Array to add parsed nodes to
+ * @param {Array<{type: string, text: string, marks?: Array<{type: string}>}>} textNodes - Array to add parsed nodes to
  */
 function parseCodeInParagraph(text, textNodes) {
 	const codeMatches = text.match(/`([^`]+)`/g);
 	let currentText = text;
 
-	codeMatches.forEach((match) => {
+	(codeMatches || []).forEach((match) => {
 		const beforeCode = currentText.split(match)[0];
 		if (beforeCode) {
 			textNodes.push({ type: 'text', text: beforeCode });
@@ -150,5 +154,7 @@ function parseCodeInParagraph(text, textNodes) {
 
 /**
  * Checks if a line matches this block type
+ * @param {string} line - The line to check
+ * @returns {boolean} Whether the line matches info block format
  */
 export const matchesInfoBlock = (line) => line.includes('**ℹ️ Info**');

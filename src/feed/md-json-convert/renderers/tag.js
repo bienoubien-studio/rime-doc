@@ -1,17 +1,17 @@
 /**
  * Tag mark renderer - converts tag marks to custom tag formatting
+ * @param {string} text - The text content to wrap in tag formatting
+ * @returns {string} The text wrapped in custom tag syntax
  */
-
-export const tag = (text, mark) => {
+export const tag = (text) => {
 	return `{{${text}}}`;
 };
 
 /**
  * Parses markdown tag to JSON mark
- * @param {string} text - The text content inside the tag
- * @returns {Object} - The tag mark
+ * @returns {{type: string, attrs: {type: string}}} The tag mark object
  */
-export const parseTagMark = (text) => {
+export const parseTagMark = () => {
 	return {
 		type: 'tag',
 		attrs: {
@@ -23,14 +23,14 @@ export const parseTagMark = (text) => {
 /**
  * Checks if text contains tag formatting
  * @param {string} text - The text to check
- * @returns {boolean} - Whether the text contains tag formatting
+ * @returns {boolean} Whether the text contains tag formatting
  */
 export const matchesTag = (text) => /\{\{([^}!]+)\}\}/.test(text);
 
 /**
  * Extracts tag segments from text
  * @param {string} text - The text to parse
- * @returns {Array} - Array of text segments with marks
+ * @returns {Array<{type: string, text: string, marks?: Array<{type: string, attrs: {type: string}}>}>} Array of text segments with marks
  */
 export const parseTagInText = (text) => {
 	const parts = [];

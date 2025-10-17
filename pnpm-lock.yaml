@@ -15,8 +15,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@bienbien/rime':
-        specifier: ^0.19.4
-        version: 0.19.4(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
+        specifier: ^0.19.7
+        version: 0.19.7(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       '@lucide/svelte':
         specifier: ^0.510.0
         version: 0.510.0(svelte@5.39.6)
@@ -169,8 +169,8 @@ packages:
   '@bien-bien/css-sizes@0.1.0':
     resolution: {integrity: sha512-mJVdTGKvMeEtld3lG4cI0MnMPIYCqCYFBzj9DyeVXaUxH7k/Rxgs0o4R8bvKbYB4olL5KAIdjg6vcHR4QxK5rw==}
 
-  '@bienbien/rime@0.19.4':
-    resolution: {integrity: sha512-niQQTzRXr++4l1iEp2I+5aQrSwtEv96POb3qy+omzu/PT5HsvJI45w+vyw/tugR5qPaFNj9XXojE/pcQcqRGRA==}
+  '@bienbien/rime@0.19.7':
+    resolution: {integrity: sha512-SDPBOO7oYlhxbwn5REM3WN4Ap/dFRshGWDmLSDjCQ3qLf8WdcH6b5Zj0U8GU+8jNgN8LJzuTgN+M0WUwJuTvnA==}
     hasBin: true
     peerDependencies:
       '@sveltejs/kit': ^2.22.0
@@ -843,8 +843,8 @@ packages:
   '@peculiar/x509@1.14.0':
     resolution: {integrity: sha512-Yc4PDxN3OrxUPiXgU63c+ZRXKGE8YKF2McTciYhUHFtHVB0KMnjeFSU0qpztGhsp4P0uKix4+J2xEpIEDu8oXg==}
 
-  '@playwright/test@1.56.0':
-    resolution: {integrity: sha512-Tzh95Twig7hUwwNe381/K3PggZBZblKUe2wv25oIpzWLr6Z0m4KgV1ZVIjnR6GM9ANEqjZD7XsZEa6JL/7YEgg==}
+  '@playwright/test@1.56.1':
+    resolution: {integrity: sha512-vSMYtL/zOcFpvJCW71Q/OEGQb7KYBPAdKh35WNSkaZA75JlAO8ED8UN6GUNTm3drWomcbcqRPFqQbLae8yBTdg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2478,13 +2478,13 @@ packages:
     resolution: {integrity: sha512-ueGLflrrnvwB3xuo/uGob5pd5FN7l0MsLf0Z87o/UQmRtwjvfylfc9MurIxRAWywCYTgrvpXBcqjV4OfCYGCIQ==}
     engines: {node: '>=16.20.0'}
 
-  playwright-core@1.56.0:
-    resolution: {integrity: sha512-1SXl7pMfemAMSDn5rkPeZljxOCYAmQnYLBTExuh6E8USHXGSX3dx6lYZN/xPpTz1vimXmPA9CDnILvmJaB8aSQ==}
+  playwright-core@1.56.1:
+    resolution: {integrity: sha512-hutraynyn31F+Bifme+Ps9Vq59hKuUCz7H1kDOcBs+2oGguKkWTU50bBWrtz34OUWmIwpBTWDxaRPXrIXkgvmQ==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.56.0:
-    resolution: {integrity: sha512-X5Q1b8lOdWIE4KAoHpW3SE8HvUB+ZZsUoN64ZhjnN8dOb1UpujxBtENGiZFE+9F/yhzJwYa+ca3u43FeLbboHA==}
+  playwright@1.56.1:
+    resolution: {integrity: sha512-aFi5B0WovBHTEvpM3DzXTUaeN6eN0qWnTkKx4NQaH4Wvcmc153PdaY2UBdSYKaGYw+UyWXSVyxDUg5DoPEttjw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3191,7 +3191,7 @@ snapshots:
 
   '@bien-bien/css-sizes@0.1.0': {}
 
-  '@bienbien/rime@0.19.4(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
+  '@bienbien/rime@0.19.7(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/types': 7.28.4
@@ -3200,7 +3200,7 @@ snapshots:
       '@internationalized/date': 3.10.0
       '@libsql/client': 0.15.15
       '@lucide/svelte': 0.540.0(svelte@5.39.6)
-      '@playwright/test': 1.56.0
+      '@playwright/test': 1.56.1
       '@sveltejs/kit': 2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17))
       '@tiptap/core': 3.7.2(@tiptap/pm@3.7.2)
       '@tiptap/extension-blockquote': 3.7.2(@tiptap/core@3.7.2(@tiptap/pm@3.7.2))
@@ -3852,9 +3852,9 @@ snapshots:
       tslib: 2.8.1
       tsyringe: 4.10.0
 
-  '@playwright/test@1.56.0':
+  '@playwright/test@1.56.1':
     dependencies:
-      playwright: 1.56.0
+      playwright: 1.56.1
 
   '@polka/url@0.5.0': {}
 
@@ -5316,11 +5316,11 @@ snapshots:
 
   pkce-challenge@5.0.0: {}
 
-  playwright-core@1.56.0: {}
+  playwright-core@1.56.1: {}
 
-  playwright@1.56.0:
+  playwright@1.56.1:
     dependencies:
-      playwright-core: 1.56.0
+      playwright-core: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
 

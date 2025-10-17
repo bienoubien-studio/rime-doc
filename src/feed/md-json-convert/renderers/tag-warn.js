@@ -1,15 +1,15 @@
 /**
  * Tag-warn mark renderer - converts tag-warn marks to custom warning formatting
+ * @param {string} text - The text content to wrap in warning tag formatting
+ * @returns {string} The text wrapped in custom warning tag syntax
  */
-
 export const tagWarn = (text) => `{{!${text}!}}`;
 
 /**
  * Parses markdown tag-warn to JSON mark
- * @param {string} text - The text content inside the warning tags
- * @returns {Object} - The tag-warn mark
+ * @returns {{type: string}} The tag-warn mark object
  */
-export const parseTagWarnMark = (text) => {
+export const parseTagWarnMark = () => {
 	return {
 		type: 'tag-warn'
 	};
@@ -18,14 +18,14 @@ export const parseTagWarnMark = (text) => {
 /**
  * Checks if text contains tag-warn formatting
  * @param {string} text - The text to check
- * @returns {boolean} - Whether the text contains tag-warn formatting
+ * @returns {boolean} Whether the text contains tag-warn formatting
  */
 export const matchesTagWarn = (text) => /\{\{!([^!]+)!\}\}/.test(text);
 
 /**
  * Extracts tag-warn segments from text
  * @param {string} text - The text to parse
- * @returns {Array} - Array of text segments with marks
+ * @returns {Array<{type: string, text: string, marks?: Array<{type: string}>}>} Array of text segments with marks
  */
 export const parseTagWarnInText = (text) => {
 	const parts = [];

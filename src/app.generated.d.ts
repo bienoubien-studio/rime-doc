@@ -1,7 +1,5 @@
-// eslint-disable-next-line no-restricted-imports
 import '@bienbien/rime';
 import type { Session } from 'better-auth';
-// eslint-disable-next-line no-restricted-imports
 import type { BaseDoc, Navigation, User } from '@bienbien/rime/types'
 
 

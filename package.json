@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@bien-bien/css-reset": "^0.1.1",
 		"@bien-bien/css-sizes": "^0.1.0",
-		"@bienbien/rime": "^0.19.4",
+		"@bienbien/rime": "^0.19.7",
 		"@lucide/svelte": "^0.510.0",
 		"@tiptap/core": "^3.7.2",
 		"@tiptap/extension-blockquote": "^3.7.2",

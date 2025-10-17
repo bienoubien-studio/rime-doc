@@ -1,5 +1,8 @@
 /**
  * Table node renderer - converts table nodes to Markdown tables
+ * @param {{type: string, content?: any[]}} node - The table node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered markdown table
  */
 
 export const table = (node, renderers) => {
@@ -19,7 +22,7 @@ export const table = (node, renderers) => {
 	// Add header separator after first row if it contains tableHeader
 	if (rows.length > 0) {
 		const firstRow = node.content[0];
-		const hasHeaders = firstRow.content?.some((cell) => cell.type === 'tableHeader');
+		const hasHeaders = firstRow.content?.some(/** @param {{type: string}} cell */ (cell) => cell.type === 'tableHeader');
 
 		if (hasHeaders) {
 			const headerCount = firstRow.content.length;
@@ -35,7 +38,7 @@ export const table = (node, renderers) => {
  * Parses markdown table to JSON
  * @param {string[]} lines - Array of markdown lines
  * @param {number} startIndex - Starting line index
- * @returns {Object} - { node: table node, endIndex: ending line index }
+ * @returns {{node: {type: string, content: Array<{type: string, content: Array<any>}>}, endIndex: number}} Object with table node and ending line index
  */
 export const parseTable = (lines, startIndex) => {
 	const tableRows = [];
@@ -101,7 +104,7 @@ export const parseTable = (lines, startIndex) => {
 /**
  * Parse table cell content for inline formatting
  * @param {string} cellText - The cell text to parse
- * @returns {Array} - Array of text nodes with formatting
+ * @returns {Array<{type: string, text: string, marks?: Array<{type: string, attrs?: any}>}>} Array of text nodes with formatting
  */
 function parseTableCellContent(cellText) {
 	const textNodes = [];
@@ -141,7 +144,7 @@ function parseTableCellContent(cellText) {
 		let remainingText = cellText;
 
 		linkMatches.forEach((match) => {
-			const linkMatch = match.match(/\[([^\]]+)\]\(([^)]+)\)/);
+			const linkMatch = match.match(/\[([^\]]+)\]\(([^)]+)\)/) || ['null', 'null', 'null'];
 			const [fullMatch, linkText, href] = linkMatch;
 			const parts = remainingText.split(fullMatch);
 			const beforeMatch = parts[0];
@@ -182,5 +185,7 @@ function parseTableCellContent(cellText) {
 
 /**
  * Checks if a line matches this block type
+ * @param {string} line - The line to check
+ * @returns {boolean} Whether the line matches table format
  */
 export const matchesTable = (line) => line.trim().startsWith('|');

@@ -58,7 +58,6 @@ const tagWarnMark: RichTextFeatureMark = {
 	icon: ShieldAlert,
 	bubbleMenu: {
 		command: ({ editor }) => {
-			console.log(editor);
 			editor.chain().focus().toggleTagWarn().run();
 		}
 	},

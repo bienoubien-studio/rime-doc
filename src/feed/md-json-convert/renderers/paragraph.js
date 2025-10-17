@@ -1,5 +1,29 @@
 /**
+ * @typedef {Object} TextNode
+ * @property {string} type
+ * @property {string} text
+ * @property {Array<any>} [marks]
+ */
+
+/**
+ * @typedef {Object} ParagraphNode
+ * @property {string} type
+ * @property {Array<TextNode>} content
+ */
+
+/**
+ * @typedef {Record<string, Function>} RendererMap
+ */
+
+/**
+ * @typedef {Array<TextNode>} TextNodeArray
+ */
+
+/**
  * Paragraph node renderer - handles paragraph content
+ * @param {ParagraphNode} node - The paragraph node
+ * @param {RendererMap} renderers - Renderer function map
+ * @returns {string} The rendered paragraph content
  */
 
 export const paragraph = (node, renderers) => {
@@ -8,7 +32,7 @@ export const paragraph = (node, renderers) => {
 	}
 
 	return node.content
-		.map((child) => {
+		.map((/** @type {any} */ child) => {
 			const renderer = renderers[child.type];
 			if (!renderer) {
 				console.warn(`No renderer found for node type: ${child.type}`);
@@ -22,7 +46,7 @@ export const paragraph = (node, renderers) => {
 /**
  * Parses markdown paragraph to JSON (with inline formatting)
  * @param {string} line - The markdown line to parse
- * @returns {Object} - The paragraph node
+ * @returns {ParagraphNode} The paragraph node
  */
 export const parseParagraph = (line) => {
 	// Handle inline formatting (code, bold, links)
@@ -62,7 +86,8 @@ export const parseParagraph = (line) => {
 		if (hasLink) {
 			parts = parseInlineFormatting(parts, /\[([^\]]+)\]\(([^)]+)\)/g, (match) => {
 				const linkMatch = match.match(/\[([^\]]+)\]\(([^)]+)\)/);
-				const [, linkText, href] = linkMatch;
+				const linkText = linkMatch?.[1] || '';
+				const href = linkMatch?.[2] || '#';
 				return {
 					type: 'text',
 					text: linkText,
@@ -112,15 +137,16 @@ export const parseParagraph = (line) => {
 
 /**
  * Helper function to parse inline formatting
- * @param {Array} parts - Current text parts
+ * @param {TextNodeArray} parts - Current text parts
  * @param {RegExp} regex - Pattern to match
- * @param {Function} createNode - Function to create formatted node
- * @returns {Array} - Updated parts array
+ * @param {(match: string) => TextNode} createNode - Function to create formatted node
+ * @returns {TextNodeArray} Updated parts array
  */
 function parseInlineFormatting(parts, regex, createNode) {
+	/** @type {TextNodeArray} */
 	const newParts = [];
 
-	parts.forEach((part) => {
+	parts.forEach((/** @type {any} */ part) => {
 		if (part.marks || !regex.test(part.text)) {
 			// Skip already formatted text or text without matches
 			newParts.push(part);
@@ -134,7 +160,7 @@ function parseInlineFormatting(parts, regex, createNode) {
 		}
 
 		let currentText = part.text;
-		matches.forEach((match) => {
+		matches.forEach((/** @type {string} */ match) => {
 			const beforeMatch = currentText.split(match)[0];
 			if (beforeMatch) {
 				newParts.push({ type: 'text', text: beforeMatch });
@@ -153,5 +179,7 @@ function parseInlineFormatting(parts, regex, createNode) {
 
 /**
  * Checks if a line matches this block type (fallback for regular text)
+ * @param {string} line - The line to check
+ * @returns {boolean} Whether the line matches paragraph format
  */
 export const matchesParagraph = (line) => line.trim().length > 0;

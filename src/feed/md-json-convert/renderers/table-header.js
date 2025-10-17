@@ -1,5 +1,8 @@
 /**
  * TableHeader node renderer - converts table header nodes to Markdown table header content
+ * @param {{type: string, content?: any[]}} node - The table header node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered table header content
  */
 
 export const tableHeader = (node, renderers) => {
@@ -25,17 +28,18 @@ export const tableHeader = (node, renderers) => {
 /**
  * Parses markdown table header to JSON
  * @param {string} cellText - The header cell text content
- * @returns {Object} - The tableHeader node
+ * @returns {{type: string, attrs: {colspan: number, colwidth: null, rowspan: number}, content: Array<{type: string, content: Array<{type: string, text: string}>}>}} The tableHeader node
  */
 export const parseTableHeader = (cellText) => {
 	return {
 		type: 'tableHeader',
 		attrs: { colspan: 1, colwidth: null, rowspan: 1 },
-		content: [{ type: 'paragraph', content: [{ type: 'text', text: cellText.trim() }] }]
+		content: [{ type: 'paragraph', content: [{ type: 'text', text: String(cellText || '').trim() }] }]
 	};
 };
 
 /**
  * Checks if this is a table header (used internally by table parser)
+ * @returns {boolean} Always returns false (only used internally)
  */
 export const matchesTableHeader = () => false; // Only used internally

@@ -1,14 +1,18 @@
 /**
  * BulletList node renderer - converts bullet list nodes to Markdown unordered lists
+ * @param {{type: 'bullet_list', content: any[]}} node - The bullet list node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered markdown unordered list
  */
 
-export const bulletList = (node, renderers) => {
+import { parseParagraph } from './paragraph.js';
+export const bulletList = (/** @type {any} */ node, /** @type {any} */ renderers) => {
 	if (!node.content || !Array.isArray(node.content)) {
 		return '';
 	}
 
 	return node.content
-		.map((child) => {
+		.map((/** @type {any} */ child) => {
 			const renderer = renderers[child.type];
 			if (!renderer) {
 				console.warn(`No renderer found for node type: ${child.type}`);
@@ -23,7 +27,7 @@ export const bulletList = (node, renderers) => {
  * Parses markdown bullet list to JSON
  * @param {string[]} lines - Array of markdown lines
  * @param {number} startIndex - Starting line index
- * @returns {Object} - { node: bulletList node, endIndex: ending line index }
+ * @returns {{node: {type: string, content: Array<any>}, endIndex: number}} Object with bulletList node and ending line index
  */
 export const parseBulletList = (lines, startIndex) => {
 	const listItems = [];
@@ -39,9 +43,11 @@ export const parseBulletList = (lines, startIndex) => {
 
 		if (currentLine.startsWith('- ')) {
 			const text = currentLine.replace(/^-\s/, '');
+			// Parse the text for inline formatting (links, bold, code, etc.)
+			const parsedParagraph = parseParagraph(text);
 			listItems.push({
 				type: 'listItem',
-				content: [{ type: 'paragraph', content: [{ type: 'text', text }] }]
+				content: [parsedParagraph]
 			});
 			i++;
 		} else {
@@ -60,5 +66,7 @@ export const parseBulletList = (lines, startIndex) => {
 
 /**
  * Checks if a line matches this block type
+ * @param {string} line - The line to check
+ * @returns {boolean} Whether the line matches bullet list format
  */
 export const matchesBulletList = (line) => line.trim().startsWith('- ');

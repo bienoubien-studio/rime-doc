@@ -1,5 +1,8 @@
 /**
  * Doc node renderer - handles the root document node
+ * @param {{type: string, content?: any[]}} node - The document node
+ * @param {Record<string, (node: any, renderers: any) => any>} renderers - Renderer function map
+ * @returns {string} The rendered markdown document
  */
 
 export const doc = (node, renderers) => {
@@ -22,7 +25,7 @@ export const doc = (node, renderers) => {
 /**
  * Parses markdown document to JSON (root level)
  * @param {Object[]} content - Array of parsed content nodes
- * @returns {Object} - The doc node
+ * @returns {{type: string, content: Object[]}} The doc node
  */
 export const parseDoc = (content) => {
 	return {
@@ -33,5 +36,6 @@ export const parseDoc = (content) => {
 
 /**
  * Checks if this is a document (always true for root)
+ * @returns {boolean} Always returns true for document root
  */
 export const matchesDoc = () => true;

@@ -1,5 +1,8 @@
 /**
  * Text node renderer - handles text content with marks
+ * @param {{type: string, text?: string, marks?: Array<{type: string, attrs?: any}>}} node - The text node
+ * @param {Record<string, (text: string, mark: any) => string>} renderers - Renderer function map
+ * @returns {string} The rendered text with applied marks
  */
 
 export const text = (node, renderers) => {
@@ -21,8 +24,8 @@ export const text = (node, renderers) => {
 /**
  * Parses markdown text to JSON
  * @param {string} text - The text content
- * @param {Object[]} marks - Optional marks to apply
- * @returns {Object} - The text node
+ * @param {Array<{type: string, attrs?: any}>} marks - Optional marks to apply
+ * @returns {{type: string, text: string, marks?: Array<{type: string, attrs?: any}>}} The text node
  */
 export const parseText = (text, marks = []) => {
 	return {
@@ -34,5 +37,6 @@ export const parseText = (text, marks = []) => {
 
 /**
  * Checks if this is text (always true for text content)
+ * @returns {boolean} Always returns true for text content
  */
 export const matchesText = () => true;

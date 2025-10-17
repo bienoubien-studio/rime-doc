@@ -1,15 +1,15 @@
 /**
  * Bold mark renderer - converts bold marks to Markdown bold formatting
+ * @param {string} text - The text content to wrap in bold formatting
+ * @returns {string} - The text wrapped in markdown bold syntax
  */
-
 export const bold = (text) => `**${text}**`;
 
 /**
  * Parses markdown bold text to JSON mark
- * @param {string} text - The text content inside the bold marks
- * @returns {Object} - The bold mark
+ * @returns {{type: string}} - The bold mark object
  */
-export const parseBoldMark = (text) => {
+export const parseBoldMark = () => {
 	return {
 		type: 'bold'
 	};
@@ -18,14 +18,14 @@ export const parseBoldMark = (text) => {
 /**
  * Checks if text contains bold formatting
  * @param {string} text - The text to check
- * @returns {boolean} - Whether the text contains bold formatting
+ * @returns {boolean} Whether the text contains bold formatting
  */
 export const matchesBold = (text) => /\*\*([^*]+)\*\*/.test(text);
 
 /**
  * Extracts bold segments from text
  * @param {string} text - The text to parse
- * @returns {Array} - Array of text segments with marks
+ * @returns {Array<{type: string, text: string, marks?: Array<{type: string}>}>} Array of text segments with marks
  */
 export const parseBoldInText = (text) => {
 	const parts = [];
