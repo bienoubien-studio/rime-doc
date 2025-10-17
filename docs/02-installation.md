@@ -1,4 +1,4 @@
-1. Create your SvelteKit [installation](/docs/02-installation.md) if not already done :
+1. Create a SvelteKit project if not already done :
 
 ```bash
 npx sv create svelte my-app && cd my-app
