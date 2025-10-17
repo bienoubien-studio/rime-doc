@@ -1,6 +1,6 @@
 **Rime** is a headless CMS built on top of **SvelteKit**, designed with a focus on flexibility, ease of configuration, user-friendly administration, and performance. It’s made for developers who want to concentrate on creativity rather than fighting with the tools.
 
-[resource:pages:/docs/02-installation.md]
+[resource:pages:installation](/docs/02-installation.md)
 
 ## Why another CMS ?
 
