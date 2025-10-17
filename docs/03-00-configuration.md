@@ -52,7 +52,8 @@ const Pages = Collection.create('pages', {
 
 | Property | Type | Description |
 | --- | --- | --- |
-| $database {{!required!}} | string | The name of the database located in ./db |
+| $adapter {{!required!}} | Adapter | The database adapter with as param the name of the database, located in ./db |
+| $auth | | Additional better-auth configuration, currently only adding server plugins is supported |
 | $smtp | SMTPConfig | Smtp configuration to enable the rime.mailer core plugin and Better-Auth email features. |
 | $trustedOrigins | string[] | Which hosts are allowed to query the API. This property is also forwarded to the Better-Auth config. More |
 | $cache | CacheConfig | API cache configuration More |
