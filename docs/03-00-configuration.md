@@ -44,7 +44,7 @@ const Pages = Collection.create('pages', {
 });
 ```
 
-[resource:pages:collection](/docs/03-01-configuration__collection.md)
+[resource:pages:collection](/docs/03-01-configuration__collections.md)
 
 [resource:pages:areas](/docs/03-02-configuration__areas.md)
 
