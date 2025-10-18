@@ -1,3 +1,3 @@
 # Rime CMS documentation website repository
 
-[View the doc](/docs/00-introduction.md)
+[View the doc](/docs/01-introduction.md)
