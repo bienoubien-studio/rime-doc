@@ -95,7 +95,7 @@ declare global {
 			/** Singleton providing access to auth, config and local-api */
       rime: ReturnType<
 				Awaited<
-					typeof import('../../../../+rime.generated/rime.config.server.ts').default
+					typeof import('./lib/+rime.generated/rime.config.server.ts').default
 				>['createRimeContext']
 			>;
       /** Flag enabled by the core plugin rime.cache when the API cache is ON */
