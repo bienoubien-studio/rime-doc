@@ -19,7 +19,7 @@ The slug that is passed as the first argument of `Collection.create` must be uni
 
 | Property | Type | Description |
 | --- | --- | --- |
-| fields {{!required!}} | FieldBuilder<Field>[] | Collection fields definition |
+| fields {{!required!}} | FieldBuilder<Field>[] | Collection fields definition [More](/docs/04-00-fields.md) |
 | icon | Component<IconProps> | The collection icon used inside the panel. Either a @lucide/svelte icon or a custom component with similar props. |
 | versions | boolean &vert; VersionsConfig | Document version configuration. More |
 | access | Access | Access rules for this collection. More |
