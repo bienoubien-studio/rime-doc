@@ -50,7 +50,7 @@ const Pages = Collection.create('pages', {
 
 ## Properties
 
-### $adapter {{! required !}}
+### $adapter {{!required!}}
 The database adapter with as param the name of the database located in ./db.
 
 ```ts
@@ -79,7 +79,6 @@ export default rime({
 
 ### $auth
 Additional better-auth configuration, currently only adding server plugins is supported.
-Require $stmp config to be set.
 
 ```ts
 import { magicLink } from "better-auth/plugins";
@@ -91,7 +90,7 @@ export default rime({
       magicLink({
         sendMagicLink: async ({ email, token, url }, request) => {
           const event = getRequestEvent()
-          event.rime.mailer.sendMail({
+          event.rime.mailer.sendMail({ // (Require $stmp config to be set)
             to: email,
         		subject: 'Sign-in',
         		text: `Your sign-in link ${url}`,
@@ -105,18 +104,16 @@ export default rime({
 
 ### $trustedOrigins
 Which hosts are allowed to query the API. This property is also forwarded to the Better-Auth config.
-Default : `[ process.env.PUBLIC_RIME_URL ]`
 
 ```ts
 export default rime({
   //...
-  $trustedOrigins: [ process.env.PUBLIC_RIME_URL, 'https://www.external.com']
+  $trustedOrigins: [ process.env.PUBLIC_RIME_URL ] // Default
 });
 ```
 
 ### $cache
-API cache configuration. Only GET requests from non-panel routes are cached.
-Default to false when user not signed-in.
+API cache configuration. Only GET requests from non-panel routes are cached. Default to false when user not signed-in.
 
 ```ts
 export default rime({
