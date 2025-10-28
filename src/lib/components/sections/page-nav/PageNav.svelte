@@ -5,64 +5,75 @@
 	import type { JSONContent } from '@tiptap/core';
 
 	type Props = { pageTitle: string; text: JSONContent | undefined };
+	type HeadingNode = {
+		attrs: {
+			level: number;
+		};
+		content: { text: string }[];
+	};
+
 	const { pageTitle, text }: Props = $props();
 
-	const items = $derived.by(() => {
+	console.log(text);
+	let elements = $state<NodeListOf<HTMLHeadingElement>>();
+	let activeId = $state(str.slugify(pageTitle));
+	let visibleElements = new Set<Element>();
+
+	const isHeadingNode = (node: JSONContent): node is HeadingNode =>
+		Array.isArray(node.content) && !!node.content[0] && !!node.content[0].text;
+
+	const headings = $derived.by(() => {
 		if (!text || !Array.isArray(text.content)) {
 			return [];
 		}
-		const hasContentText = (node: JSONContent): node is { content: { text: string }[] } =>
-			Array.isArray(node.content) && !!node.content[0] && !!node.content[0].text;
-
 		return [
-			{
-				label: pageTitle,
-				id: str.slugify(pageTitle)
-			},
 			...text.content
 				.filter((node) => node.type === 'heading')
-				.filter(hasContentText)
+				.filter(isHeadingNode)
 				.map((node) => ({
 					label: node.content[0].text,
-					id: str.slugify(richTextJSONToText(node))
+					level: node.attrs.level - 2,
+					id: richTextJSONToText(node).replace(' ', '-')
 				}))
 		];
 	});
 
-	let activeId = $state(str.slugify(pageTitle));
+	// Taken from https://github.com/huntabyte/bits-ui/blob/main/docs/src/lib/components/toc/toc.svelte
+	function observerCallback(entries: IntersectionObserverEntry[]) {
+		for (let entry of entries) {
+			if (entry.isIntersecting) {
+				visibleElements.add(entry.target);
+			} else {
+				visibleElements.delete(entry.target);
+			}
+		}
+		let first = Array.from(elements || []).find((element) => visibleElements.has(element));
+		console.log(first);
+		if (!first) return;
+		activeId = first.id;
+	}
+
+	$effect(() => {
+		const main = document.getElementsByTagName('main')[0];
+		if (!main) return;
+		elements = main.querySelectorAll('h2, h3') as NodeListOf<HTMLHeadingElement>;
+	});
 
 	// Intersection Observer to track visible headings
 	$effect(() => {
-		const ids = items.map((item) => item.id);
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						const id = entry.target.id;
-						if (ids.includes(id)) {
-							activeId = id;
-						}
-					}
-				});
-			},
-			{
-				rootMargin: '0px 0px -60% 0px', // Trigger when heading is in the top 40% of viewport
+		if (elements) {
+			const observer = new IntersectionObserver(observerCallback, {
+				rootMargin: '-70px 0px',
 				threshold: 0
-			}
-		);
+			});
 
-		// Observe all elements with IDs from items
-		ids.forEach((id) => {
-			const element = document.getElementById(id);
-			if (element) {
-				observer.observe(element);
-			}
-		});
+			// Observe all elements with IDs from items
+			elements.forEach((element) => observer.observe(element));
 
-		return () => {
-			observer.disconnect();
-		};
+			return () => {
+				observer.disconnect();
+			};
+		}
 	});
 </script>
 
@@ -70,8 +81,12 @@
 	<aside>
 		<h2><TableOfContents size="14" /> On this page</h2>
 		<ul>
-			{#each items as item (item.id)}
-				<li><a href="#{item.id}" class:active={activeId === item.id}>{item.label}</a></li>
+			{#each headings as item (item.id)}
+				<li>
+					<a data-level={item.level} href="#{item.id}" class:active={activeId === item.id}
+						>{item.label}</a
+					>
+				</li>
 			{/each}
 		</ul>
 	</aside>
@@ -94,16 +109,21 @@
 	ul {
 		margin-left: var(--size-4);
 		display: grid;
-		gap: var(--size-2);
 	}
 	a {
+		font-size: var(--text-sm);
 		display: block;
 		color: oklch(var(--light-12) 0 0);
 		text-decoration: none;
-		border-left: 1px solid transparent;
+		border-left: 1px solid oklch(from var(--color-fg) l c h / 0.1);
+		padding-top: var(--size-1);
+		padding-bottom: var(--size-1);
 		padding-left: var(--size-3);
 		margin-left: calc(-1 * var(--size-3));
 		transition: all 0.2s ease;
+		&[data-level='1'] {
+			padding-left: var(--size-6);
+		}
 	}
 
 	a:hover {
