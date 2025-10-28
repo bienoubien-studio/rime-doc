@@ -8,14 +8,14 @@ import { warnBlockFeature } from '$lib/rich-text-features/warn-feature/warn-feat
 import { Collection, Hooks } from '$rime/config';
 import { richText, slug, tab, tabs, text, textarea, toggle } from '@bienbien/rime/fields';
 import {
-    blockquote,
-    bold,
-    bulletList,
-    heading,
-    hr,
-    link,
-    orederedList,
-    resource
+	blockquote,
+	bold,
+	bulletList,
+	heading,
+	hr,
+	link,
+	orederedList,
+	resource
 } from '@bienbien/rime/fields/rich-text';
 
 const refreshData = Hooks.afterUpdate(async (args) => {
@@ -79,7 +79,7 @@ export const pages = Collection.create('pages', {
 							tableFeature
 						)
 						.$beforeRead(async (value, context) => {
-							if ('content' in value && Array.isArray(value.content)) {
+							if (typeof value === 'object' && 'content' in value && Array.isArray(value.content)) {
 								for (const node of value.content) {
 									if (node.type === 'resource' && node.attrs?.id) {
 										const [document] = await context.event.locals.rime.collection('pages').find({

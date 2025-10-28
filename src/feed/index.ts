@@ -8,27 +8,49 @@ const mdDir = path.join(root, 'docs');
 
 const headers = await signIn(process.env.FEED_USER || '', process.env.FEED_PASSWORD || '');
 
-/**
- * @typedef {Object} FileEntry
- * @property {string} slug
- * @property {string} uri
- * @property {string} path
- * @property {string} content
- * @property {number} position
- * @property {string | null} parent
- */
+interface FileEntry {
+	slug: string;
+	uri: string;
+	path: string;
+	content: string;
+	position: number;
+	parent: string | null;
+}
 
-/**
- * Extracts the position from a filename by getting the last number in the prefix.
- * @example
- * extractPosition('99-32-03-configuration.md') // 3
- * extractPosition('2000-232-80-installation.md') // 80
- * extractPosition('00-2000-232-128-config.md') // 128
- * extractPosition('00-2000-232-0128-config.md') // 128
- * extractPosition('04-0128-something.md') // 128
- * @param {string} filename - The filename to parse
- * @returns {number} The last number in the prefix as integer
- */
+interface PageDoc {
+	id: string;
+	url?: string;
+	attributes?: {
+		slug: string;
+		title: string;
+		longTitle: string;
+	};
+}
+
+interface ApiResponse<T> {
+	docs: T[];
+	doc?: T;
+}
+
+interface PageCreateData {
+	_position: number;
+	attributes: {
+		title: string;
+		slug: string;
+		longTitle: string;
+	};
+	content: {
+		text: any;
+	};
+	_parent?: string;
+}
+
+interface PageUpdateData {
+	_position: number;
+	content: {
+		text: any;
+	};
+}
 
 /**
  * Extracts the position from a filename by getting the last non-zero number in the prefix.
@@ -38,10 +60,10 @@ const headers = await signIn(process.env.FEED_USER || '', process.env.FEED_PASSW
  * extractPosition('128-01-00-installation.md') // 1
  * extractPosition('128-00-00-config.md') // 128
  * extractPosition('04-0128-something.md') // 128
- * @param {string} filename - The filename to parse
- * @returns {number} The last non-zero number in the prefix as integer
+ * @param filename - The filename to parse
+ * @returns The last non-zero number in the prefix as integer
  */
-function extractPosition(filename) {
+function extractPosition(filename: string): number {
 	// Extract all numbers from the beginning of the filename
 	const match = filename.match(/^(\d+(?:-\d+)*)/);
 	if (!match) {
@@ -65,13 +87,13 @@ function extractPosition(filename) {
 /**
  * Converts a file path with numeric prefixes to a clean URI path.
  * Removes numeric prefixes, converts double underscores to slashes, and removes file extensions.
- * @param {string} filePath - the file path
+ * @param filePath - the file path
  * @example
  * convertPathToUri('03-01-configuration__collections.md') // 'configuration/collections'
  * convertPathToUri('02-installation.md') // 'installation'
  * convertPathToUri('03-00-configuration') // 'configuration'
  */
-export function convertPathToUri(filePath) {
+export function convertPathToUri(filePath: string): string {
 	return filePath
 		.replace(/^\d+-\d*-?/, '') // Remove numeric prefix (e.g., '03-01-', '02-', '03-00-')
 		.replace(/__/g, '/') // Convert double underscores to forward slashes
@@ -79,29 +101,27 @@ export function convertPathToUri(filePath) {
 }
 
 /**
- * Converts a file path with numeric prefixes to a clean URI path.
- * Removes numeric prefixes, converts double underscores to slashes, and removes file extensions.
- * @param {string} dir - the directory to scan
- * @return {Set<FileEntry>} - set of files with info
- * @example
- * convertPathToUri('03-01-configuration__collections.md') // 'configuration/collections'
- * convertPathToUri('02-installation.md') // 'installation'
- * convertPathToUri('03-00-configuration') // 'configuration'
+ * Scans a directory recursively and returns file entries
+ * @param dir - the directory to scan
+ * @returns set of files with info
  */
-function scanDir(dir) {
-	let files = new Set();
+function scanDir(dir: string): Set<FileEntry> {
+	const files = new Set<FileEntry>();
 	const entries = readdirSync(dir, { withFileTypes: true });
+
 	for (const entry of entries) {
 		const fullPath = path.join(dir, entry.name);
 		if (entry.isDirectory()) {
-			scanDir(fullPath);
+			const subFiles = scanDir(fullPath);
+			subFiles.forEach((file) => files.add(file));
 		} else if (!entry.name.includes('DS_Store')) {
 			const relative = path.relative(mdDir, fullPath);
 			const uri = convertPathToUri(relative);
-			const parent = uri.split('/').length > 1 ? uri.split('/').at(-2) : null;
+			const parent = uri.split('/').length > 1 ? uri.split('/').at(-2) || null : null;
 			const content = readFileSync(fullPath, { encoding: 'utf-8' });
+
 			files.add({
-				slug: uri.split('/').at(-1),
+				slug: uri.split('/').at(-1) || '',
 				parent,
 				position: extractPosition(entry.name),
 				content,
@@ -114,11 +134,9 @@ function scanDir(dir) {
 }
 
 /**
- *
- * @param {string} slug
- * @return {Promise<null | {id: string}>}
+ * Gets a parent page by slug
  */
-async function getParent(slug) {
+async function getParent(slug: string): Promise<PageDoc | null> {
 	const response = await fetch(
 		`${process.env.PUBLIC_RIME_URL}/api/pages?where[attributes.slug][equals]=${slug}`,
 		{
@@ -126,34 +144,35 @@ async function getParent(slug) {
 			headers
 		}
 	);
+
 	if (response.status === 200) {
-		const { docs } = await response.json();
-		if (!docs.length) return null;
-		return docs[0];
+		const data: ApiResponse<PageDoc> = await response.json();
+		if (!data.docs.length) return null;
+		return data.docs[0];
 	}
 	return null;
 }
 
 /**
- *  Capitalized string
- * @param {string} str
- * @returns string
+ * Capitalizes a string
  */
-export const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
 /**
- *
- * @param {FileEntry} file
- * @returns {Promise<string>} id
+ * Creates a new page
  */
-async function createPage(file) {
-	let parent = null;
+async function createPage(file: FileEntry): Promise<string> {
+	console.log(1);
+	let parent: PageDoc | null = null;
+
 	if (file.parent) {
 		parent = await getParent(file.parent);
-		if (!parent) throw Error(`Parent ${file.parent} don't exists`);
+		if (!parent) throw new Error(`Parent ${file.parent} don't exists`);
 	}
+
 	const content = await markdownToJson(file.content);
-	const baseData = {
+
+	const baseData: PageCreateData = {
 		_position: file.position,
 		attributes: {
 			title: capitalize(file.slug),
@@ -164,6 +183,7 @@ async function createPage(file) {
 			text: content
 		}
 	};
+
 	const data = parent ? { ...baseData, _parent: parent.id } : baseData;
 
 	const response = await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages`, {
@@ -172,29 +192,32 @@ async function createPage(file) {
 		headers
 	});
 
-	if (response.status !== 200) throw Error(`Error while creating /${file.uri}`);
-	const { doc } = await response.json();
-	return doc.id;
+	if (response.status !== 200) {
+		throw new Error(`Error while creating /${file.uri}`);
+	}
+
+	const result: ApiResponse<PageDoc> = await response.json();
+	return result.doc?.id || '';
 }
 
 /**
- *
- * @param {FileEntry} file
- * @param {string} id
+ * Updates an existing page
  */
-async function updatePage(file, id) {
+async function updatePage(file: FileEntry, id: string): Promise<void> {
 	const content = await markdownToJson(file.content);
-	const data = {
+	const data: PageUpdateData = {
 		_position: file.position,
 		content: {
 			text: content
 		}
 	};
+
 	const response = await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages/${id}`, {
 		method: 'PATCH',
 		body: JSON.stringify(data),
 		headers
 	});
+
 	if (response.status === 200) {
 		console.log(`[√] /${file.uri} updated`);
 	} else {
@@ -203,14 +226,17 @@ async function updatePage(file, id) {
 	}
 }
 
-export const feed = async () => {
-	//
-	async function run() {
-		await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages`, { method: 'delete', headers });
+export const feed = async (): Promise<void> => {
+	async function run(): Promise<void> {
+		await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages`, {
+			method: 'DELETE',
+			headers
+		});
 
 		const files = scanDir(mdDir);
+		const uriMapId = new Map<string, string>();
 
-		const uriMapId = new Map();
+		// First pass: check existing pages and create missing ones
 		for (const file of Array.from(files)) {
 			const docUrl = `${process.env.PUBLIC_RIME_URL}/docs/${file.uri}`;
 			const response = await fetch(
@@ -220,30 +246,36 @@ export const feed = async () => {
 					headers
 				}
 			);
+
 			if (response.status === 200) {
-				const { docs } = await response.json();
-				if (!docs.length) {
+				const data: ApiResponse<PageDoc> = await response.json();
+				if (!data.docs.length) {
 					console.warn(docUrl, 'not found -> create');
 					const id = await createPage(file);
 					uriMapId.set(file.uri, id);
 				} else {
-					uriMapId.set(file.uri, docs[0].id);
+					uriMapId.set(file.uri, data.docs[0].id);
 				}
 			}
 		}
 
+		// Second pass: update all pages
 		for (const file of Array.from(files)) {
 			const id = uriMapId.get(file.uri);
-			if (!id) throw Error(`Missing /${file.uri} id in Map`);
-			await updatePage(file, uriMapId.get(file.uri));
+			if (!id) {
+				throw new Error(`Missing /${file.uri} id in Map`);
+			}
+			await updatePage(file, id);
 		}
 	}
 
 	try {
-		run();
+		await run();
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-feed();
+if (require.main === module) {
+	feed();
+}
