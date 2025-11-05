@@ -8,5 +8,8 @@ export default rime({
 	$adapter: adapterSqlite('doc.sqlite'),
 	collections: [pages],
 	areas: [nav],
+	$cache: {
+		isEnabled: () => false
+	},
 	siteUrl: env.PUBLIC_RIME_URL
 });
