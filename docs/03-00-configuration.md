@@ -20,8 +20,7 @@ export default rime({
 });
 ```
 
-> **ℹ️ Info**
-> Note that **server-only properties** are declared with the `$` prefix. This is because the configuration will be split into a client and server versions, **generated in the **`$lib/+rime.generated`** folder (location may change, but this setup ensures relative imports remain intact).**
+> [!INFO] Note that **server-only properties** are declared with the `$` prefix. This is because the configuration will be split into a client and server versions, **generated in the **`$lib/+rime.generated`** folder (location may change, but this setup ensures relative imports remain intact).**
 
 ## Document prototypes
 
@@ -50,7 +49,7 @@ const Pages = Collection.create('pages', {
 
 ## Properties
 
-### $adapter {{!required!}}
+### $adapter {!required!}
 The database adapter with as param the name of the database located in ./db.
 
 ```ts
@@ -124,8 +123,7 @@ export default rime({
 });
 ```
 
-> **ℹ️ Info**
-> Note that RIME_CACHE_ENABLED env variable has a higher priority than the `$cache.isEnabled` function.
+> [!INFO] Note that RIME_CACHE_ENABLED env variable has a higher priority than the `$cache.isEnabled` function.
 
 ### $routes
 Custom API routes definition. `GET`, `POST`, `PATCH`, `DELETE` are supported.

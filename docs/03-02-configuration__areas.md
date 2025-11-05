@@ -16,14 +16,29 @@ The slug, passed as the first argument of `Area.create` must be unique across al
 
 ## Properties
 
-| Property | Type | Description |
-| --- | --- | --- |
-| fields {{!required!}} | FieldBuilder<Field>[] | Area fields definition |
-| icon | Component<IconProps> | The area icon used inside the panel. Either a @lucide/svelte icon or a custom component with similar props. |
-| versions | boolean &vert; VersionsConfig | Document version configuration. More |
-| access | Access | Access rules for this area. More |
-| live | boolean | Whether a the document can be live edited. This require the `url` property to be defined. |
-| panel | false &vert; DocPanelConfig | Panel configuration : `panel.group` defines the navigation group, `panel.description` the description on the dashboard. |
-| label | string | Area label |
-| $hooks | AreaHooks | User defined hooks for operations fine grained control. |
-| $url | Function | A function that get the document as argument and return a string. More |
+### $hooks {{server-only}}
+User defined hooks for operations fine grained control.
+
+### $url {{server-only}}
+A function that get the document as argument and return a string.
+
+### access
+Access rules for this area.
+
+### fields {!required!}
+Area fields definition. [More](/docs/04-00-fields.md).
+
+### icon
+The area icon used inside the panel. Either a @lucide/svelte icon or a custom component with similar props.
+
+### label
+Area label.
+
+### live
+Whether a the document can be live edited. This require the `url` property to be defined.
+
+### panel
+Panel configuration : `panel.group` defines the navigation group, `panel.description` the description on the dashboard.
+
+### versions
+Document version configuration.

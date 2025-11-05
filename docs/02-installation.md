@@ -30,7 +30,7 @@ curl -v POST http://localhost:5173/api/init \
   -d '{"email": "you@website.com", "password": "super-Secret+2000", "name": "Admin"}'
 ```
 
-### Next step
+## Next step
 
 You can now visit the `/panel`, in which there will be nothing more than the basic stuffs, so let’s start adding some content types.
 

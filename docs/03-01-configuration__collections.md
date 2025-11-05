@@ -17,17 +17,78 @@ The slug that is passed as the first argument of `Collection.create` must be uni
 
 ## Properties
 
-| Property | Type | Description |
-| --- | --- | --- |
-| fields {{!required!}} | FieldBuilder<Field>[] | Collection fields definition [More](/docs/04-00-fields.md) |
-| icon | Component<IconProps> | The collection icon used inside the panel. Either a @lucide/svelte icon or a custom component with similar props. |
-| versions | boolean &vert; VersionsConfig | Document version configuration. More |
-| access | Access | Access rules for this collection. More |
-| live | boolean | Whether a document from the collection can be live edited. This require the `url` property to be defined. |
-| panel | false &vert; DocPanelConfig | Panel configuration : `panel.group` defines the navigation group, `panel.description` the description on the dashboard. |
-| label | string &vert; CollectionLabel | Collection label |
-| auth | boolean &vert; AuthConfig | Authentication configuration. More |
-| $hooks | CollectionHooks | User defined hooks for operations fine grained control. |
-| $url | Function | A function that get the document as argument and return a string. More |
-| nested | boolean | Whether the collection has the nested feature enable. When enabled documents can have children and/or parent, this also enable tree reordering on the collection page |
-| upload | boolean &vert; UploadConfig | When enabled, a collection document will have a file upload feature. More |
+### $url {{server-only}}
+A function that get the document as argument and return a string. When set this will generate a url property on documents.
+
+### $hooks {{server-only}}
+User defined hooks for operations fine grained control.
+
+```ts
+import { Collection, Hooks } from '$rime/config';
+import { RimeError } from '@bienbien/rime';
+
+const Posts = Collection.create('posts', {
+  //...
+  $hooks: {
+    beforeRead: [
+      Hooks.beforeRead<'posts'>(async (args) => {
+        const doc = args.doc
+        // Do what you want with the document
+        return { ...args, doc }
+      })
+    ]
+  }
+});
+```
+
+### access
+Access rules for the collection.
+
+```ts
+import { Collection } from '$rime/config';
+
+const Posts = Collection.create('posts', {
+  // Default access
+  access: {
+    create: (user) => !!user && user.isStaff,
+    read: (user) => !!user && user.isStaff,
+    update: (user) => !!user && user.isStaff,
+    delete: (user) => !!user && user.isStaff,
+  }
+});
+```
+
+### auth
+Authentication configuration. More
+
+```ts
+import { Collection } from '$rime/config';
+
+const Users = Collection.create('users', {
+  auth: true
+});
+```
+
+### fields {!required!}
+Collection fields definition [More](/docs/04-00-fields.md)
+
+### icon
+The collection icon used inside the panel. Either a @lucide/svelte icon or a custom component with similar props.
+
+### label
+The collection label.
+
+### live
+Whether a document from the collection can be live edited. This require the `url` property to be defined.
+
+### nested
+Whether the collection has the nested feature enable. When enabled documents can have children and/or parent, this also enable tree reordering on the collection panel page.
+
+### panel
+Panel configuration : `panel.group` defines the navigation group, `panel.description` the description on the dashboard.
+
+### upload
+When enabled, a collection document will have a file upload feature.
+
+### versions
+Document version configuration.
