@@ -8,7 +8,7 @@ import type { ParseResult } from '../index.js';
 
 export const resourceRenderer = {
 	type: 'node',
-	matcher: /^\[resource:([^:]+):([^\]]+)\]\(([^)]+)\)\n/,
+	matcher: /^\[resource:([^:]+):([^\]]+)\]\(([^)]+)\)(?:\n|$)/,
 
 	/**
 	 * Checks if markdown line is a resource

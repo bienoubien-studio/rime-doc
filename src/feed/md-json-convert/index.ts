@@ -6,11 +6,15 @@
 import type { JSONContent } from '@tiptap/core';
 import { boldRenderer } from './renderers/bold.js';
 import { bulletListRenderer } from './renderers/bullet-list.js';
+import { codeBlockRenderer } from './renderers/code-block.js';
 import { codeRenderer } from './renderers/code.js';
 import { headingRenderer } from './renderers/heading.js';
+import { infoBlockRenderer } from './renderers/info-block.js';
 import { linkRenderer } from './renderers/link.js';
+import { orderedListRenderer } from './renderers/ordered-list.js';
 import { paragraphRenderer } from './renderers/paragraph.js';
 import { resourceRenderer } from './renderers/resource.js';
+import { tagWarnRenderer } from './renderers/tag-warn.js';
 import { tagRenderer } from './renderers/tag.js';
 import { textRenderer } from './renderers/text.js';
 
@@ -35,11 +39,15 @@ const allRenderers = [
 	boldRenderer,
 	codeRenderer,
 	resourceRenderer,
+	infoBlockRenderer,
 	bulletListRenderer,
+	orderedListRenderer,
+	codeBlockRenderer,
 	headingRenderer,
 	paragraphRenderer,
 	linkRenderer,
 	tagRenderer,
+	tagWarnRenderer,
 	textRenderer
 ];
 const nodeRenderers = allRenderers.filter((r) => r.type === 'node');
@@ -88,6 +96,7 @@ function skipEmptyLines(markdown: string, cursor: number): number {
  */
 export async function markdownToJson(input: string): Promise<DocNode> {
 	const withoutLeading = input.replace(/^[\n\r\s]+/, '');
+	// console.log('Input:', withoutLeading);
 	const content = await parseMarkdown(withoutLeading, nodeRenderers);
 	return {
 		type: 'doc',

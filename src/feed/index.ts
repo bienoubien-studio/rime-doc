@@ -1,3 +1,4 @@
+import { trycatchFetch } from '@bienbien/trycatch';
 import { readdirSync, readFileSync } from 'fs';
 import path from 'path';
 import { markdownToJson } from './md-json-convert/index.js';
@@ -14,6 +15,7 @@ interface FileEntry {
 	path: string;
 	content: string;
 	position: number;
+	isParent: boolean;
 	parent: string | null;
 }
 
@@ -84,6 +86,11 @@ function extractPosition(filename: string): number {
 	return 0;
 }
 
+function isParent(filename: string) {
+	const pattern = /^\d+-00.*/;
+	return pattern.test(filename);
+}
+
 /**
  * Converts a file path with numeric prefixes to a clean URI path.
  * Removes numeric prefixes, converts double underscores to slashes, and removes file extensions.
@@ -123,6 +130,7 @@ function scanDir(dir: string): Set<FileEntry> {
 			files.add({
 				slug: uri.split('/').at(-1) || '',
 				parent,
+				isParent: isParent(entry.name),
 				position: extractPosition(entry.name),
 				content,
 				uri,
@@ -162,7 +170,6 @@ export const capitalize = (str: string): string => str.charAt(0).toUpperCase() +
  * Creates a new page
  */
 async function createPage(file: FileEntry): Promise<string> {
-	console.log(1);
 	let parent: PageDoc | null = null;
 
 	if (file.parent) {
@@ -201,9 +208,19 @@ async function createPage(file: FileEntry): Promise<string> {
 }
 
 /**
+ * Get the current nav document
+ */
+async function getNav(): Promise<NavDoc> {
+	const [err, response] = await trycatchFetch(`${process.env.PUBLIC_RIME_URL}/api/nav`);
+	if (err) throw err;
+	const { doc } = await response.json();
+	return doc;
+}
+
+/**
  * Updates an existing page
  */
-async function updatePage(file: FileEntry, id: string): Promise<void> {
+async function updatePage(file: FileEntry, id: string): Promise<PagesDoc> {
 	const content = await markdownToJson(file.content);
 	const data: PageUpdateData = {
 		_position: file.position,
@@ -212,35 +229,34 @@ async function updatePage(file: FileEntry, id: string): Promise<void> {
 		}
 	};
 
-	const response = await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages/${id}`, {
+	const [err, response] = await trycatchFetch(`${process.env.PUBLIC_RIME_URL}/api/pages/${id}`, {
 		method: 'PATCH',
 		body: JSON.stringify(data),
 		headers
 	});
 
-	if (response.status === 200) {
-		console.log(`[√] /${file.uri} updated`);
-	} else {
+	if (err) {
 		console.log(response);
 		throw new Error(`Error with ${file.uri}`);
 	}
+
+	console.log(`[√] /${file.uri} updated`);
+	const { doc } = await response.json();
+	return doc;
 }
 
 export const feed = async (): Promise<void> => {
+	//
 	async function run(): Promise<void> {
-		await fetch(`${process.env.PUBLIC_RIME_URL}/api/pages`, {
-			method: 'DELETE',
-			headers
-		});
-
 		const files = scanDir(mdDir);
 		const uriMapId = new Map<string, string>();
+		const idMapDoc = new Map<string, PagesDoc>();
 
 		// First pass: check existing pages and create missing ones
 		for (const file of Array.from(files)) {
 			const docUrl = `${process.env.PUBLIC_RIME_URL}/docs/${file.uri}`;
 			const response = await fetch(
-				`${process.env.PUBLIC_RIME_URL}/api/pages?where[url][equals]=${docUrl}`,
+				`${process.env.PUBLIC_RIME_URL}/api/pages?where[url][equals]=${encodeURIComponent(docUrl)}`,
 				{
 					method: 'GET',
 					headers
@@ -256,6 +272,8 @@ export const feed = async (): Promise<void> => {
 				} else {
 					uriMapId.set(file.uri, data.docs[0].id);
 				}
+			} else {
+				throw Error(String(response.status) + ' ' + (await response.text()));
 			}
 		}
 
@@ -263,10 +281,97 @@ export const feed = async (): Promise<void> => {
 		for (const file of Array.from(files)) {
 			const id = uriMapId.get(file.uri);
 			if (!id) {
+				console.log(file.uri);
+				console.log(uriMapId);
 				throw new Error(`Missing /${file.uri} id in Map`);
 			}
-			await updatePage(file, id);
+			const doc = await updatePage(file, id);
+			idMapDoc.set(id, doc);
 		}
+
+		// 3rd update menu
+		function hasParent(file: FileEntry): file is FileEntry & { parent: string } {
+			return file.parent !== null;
+		}
+		function isOrphean(file: FileEntry): file is FileEntry & { parent: null } {
+			return file.parent === null;
+		}
+
+		const nav = await getNav();
+		const filesWithParent = Array.from(files).filter(hasParent);
+		const parentMap = Object.groupBy(filesWithParent, ({ parent }) => parent);
+		type MainNavItem = Omit<NavDoc['main'][number], 'id' | '_children'> & {
+			_children: MainNavItem[];
+		};
+		const mainNav: MainNavItem[] = [];
+
+		function getDocByURI(uri: string) {
+			const id = uriMapId.get(uri);
+			if (!id) throw Error("Can't find id for " + uri);
+			const doc = idMapDoc.get(id);
+			if (!doc) throw Error("Can't find doc for " + id);
+			return doc;
+		}
+
+		function childToNavItem(child: FileEntry, index: number): MainNavItem {
+			const doc = getDocByURI(child.uri);
+			return {
+				label: doc.title,
+				pages: {
+					type: 'pages',
+					value: doc.id,
+					target: '_self'
+				},
+				position: index + 1,
+				_children: []
+			};
+		}
+
+		for (const [index, file] of Array.from(files).filter(isOrphean).entries()) {
+			const doc = getDocByURI(file.uri);
+
+			if (file.isParent) {
+				const children = (parentMap[file.slug] || []).sort((a, b) => a.slug.localeCompare(b.slug));
+				const overview: MainNavItem = {
+					label: 'Overview',
+					position: 0,
+					pages: {
+						type: 'pages',
+						value: doc.id,
+						target: '_self'
+					},
+					_children: []
+				};
+				mainNav.push({
+					label: doc.title,
+					pages: undefined,
+					position: index,
+					_children: [overview, ...children.map(childToNavItem)]
+				});
+			} else {
+				mainNav.push({
+					label: doc.title,
+					pages: {
+						type: 'pages',
+						value: doc.id,
+						target: '_self'
+					},
+					position: index,
+					_children: []
+				});
+			}
+		}
+
+		const [err] = await trycatchFetch(`${process.env.PUBLIC_RIME_URL}/api/nav`, {
+			method: 'PATCH',
+			headers,
+			body: JSON.stringify({
+				...nav,
+				main: mainNav
+			})
+		});
+		if (err) throw Error('Error while updating nav, status:' + err.status);
+		console.log('[√] Nav updated');
 	}
 
 	try {
@@ -276,6 +381,6 @@ export const feed = async (): Promise<void> => {
 	}
 };
 
-if (require.main === module) {
-	feed();
-}
+// if (require.main === module) {
+feed();
+// }
