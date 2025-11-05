@@ -12,7 +12,7 @@ const rimeTheme = createCssVariablesTheme({
 
 export const highlighter = await createHighlighter({
 	themes: [rimeTheme],
-	langs: ['typescript', 'bash']
+	langs: ['typescript', 'bash', 'svelte']
 });
 
 export function highlightCode(code: string, lang: string) {

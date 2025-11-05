@@ -49,6 +49,7 @@
 		}
 		let first = Array.from(elements || []).find((element) => visibleElements.has(element));
 		console.log(first);
+
 		if (!first) return;
 		activeId = first.id;
 	}
@@ -56,7 +57,9 @@
 	$effect(() => {
 		const main = document.getElementsByTagName('main')[0];
 		if (!main) return;
-		elements = main.querySelectorAll('h2, h3') as NodeListOf<HTMLHeadingElement>;
+		elements = main.querySelectorAll(
+			'.render-rich-text > h2, .render-rich-text > h3'
+		) as NodeListOf<HTMLHeadingElement>;
 	});
 
 	// Intersection Observer to track visible headings
@@ -95,6 +98,7 @@
 <style lang="postcss">
 	h2 {
 		@mixin font-title;
+		font-size: var(--text-fluid-sm);
 		margin-bottom: var(--size-4);
 		display: flex;
 		align-items: center;
@@ -111,7 +115,7 @@
 		display: grid;
 	}
 	a {
-		font-size: var(--text-sm);
+		font-size: var(--text-fluid-sm);
 		display: block;
 		color: oklch(var(--light-12) 0 0);
 		text-decoration: none;
@@ -120,7 +124,7 @@
 		padding-bottom: var(--size-1);
 		padding-left: var(--size-3);
 		margin-left: calc(-1 * var(--size-3));
-		transition: all 0.2s ease;
+		transition: border-color 0.2s ease;
 		&[data-level='1'] {
 			padding-left: var(--size-6);
 		}

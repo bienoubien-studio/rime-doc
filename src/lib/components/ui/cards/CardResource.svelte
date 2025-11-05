@@ -45,6 +45,10 @@
 		}
 	}
 
+	.card-resource:hover {
+		border-color: oklch(from var(--color-border) calc(l * 1.2) c h);
+	}
+
 	.content {
 		flex: 1;
 		min-width: 0;

@@ -34,6 +34,7 @@
 
 	<main>
 		<h1 id={string.slugify(doc.title)}>{doc.attributes.longTitle || doc.title}</h1>
+
 		<div class="render-rich-text">
 			<RenderRichText
 				json={doc.content.text}
@@ -78,12 +79,13 @@
 	</main>
 
 	<PageNav pageTitle={doc.title} text={doc.content.text} />
+	<!-- <Font /> -->
 </div>
 
 <style lang="postcss">
 	h1 {
 		@mixin font-title;
-		font-size: var(--text-5xl);
+		font-size: var(--text-fluid-3xl);
 		scroll-margin-top: calc(var(--size-16) + var(--header-height));
 	}
 	.page {

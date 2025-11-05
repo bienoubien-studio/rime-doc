@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/public';
 import type { Link } from '@bienbien/rime/types';
-import { error, type ServerLoadEvent } from '@sveltejs/kit';
+import { error, redirect, type ServerLoadEvent } from '@sveltejs/kit';
 
 export const load = async ({ locals, params, parent, url }: ServerLoadEvent) => {
 	const { rime } = locals;
@@ -8,10 +8,13 @@ export const load = async ({ locals, params, parent, url }: ServerLoadEvent) => 
 
 	console.time('page');
 
+	if (parts === 'docs') throw redirect(301, '/docs/introduction');
+
 	// Get page depending on it is home or not
 	const query = parts
 		? `where[url][equals]=${env.PUBLIC_RIME_URL}/${parts}`
 		: `where[attributes.isHome][equals]=true`;
+
 	const docs = await rime.collection('pages').find({
 		query
 	});

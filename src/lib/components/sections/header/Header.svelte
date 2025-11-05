@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Logo from '$lib/components/Logo.svelte';
 	import Button from '$lib/components/ui/button/Button.svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Moon, Sun } from '@lucide/svelte';
@@ -18,8 +19,7 @@
 <header class:header--border={border}>
 	<div class="header__left">
 		<a href="/">
-			Rime
-			<!-- <Logo /> -->
+			<Logo />
 		</a>
 
 		<!-- <Search /> -->

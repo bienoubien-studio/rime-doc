@@ -42,12 +42,12 @@
 	}
 
 	h3 {
-		font-size: var(--text-sm);
+		font-size: var(--text-fluid-sm);
 		margin-top: var(--size-1);
 	}
 
 	p {
-		font-size: var(--text-xs);
+		font-size: var(--text-fluid-xs);
 		opacity: 0.4;
 		line-height: 1.3;
 		text-wrap: balance;

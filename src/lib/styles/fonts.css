@@ -1,3 +1,5 @@
+@import './text-fluid.css';
+
 @font-face {
 	font-family: 'geist';
 	src: url('/fonts/Geist-VariableFont_wght.ttf') format('truetype');
@@ -15,5 +17,8 @@
 :root {
 	--font-sans: 'geist', sans-serif;
 	--font-mono: 'geist-mono', mono;
-	--font-brand: 'Ohno Casual Variable', sans-serif;
+}
+
+body {
+	font-size: var(--text-fluid-md);
 }

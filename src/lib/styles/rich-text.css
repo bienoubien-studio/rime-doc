@@ -1,7 +1,7 @@
 .render-rich-text {
 	line-height: 1.6;
 	display: grid;
-	gap: var(--size-3);
+	gap: var(--size-2);
 	grid-template-columns: 1fr 1fr;
 
 	a {
@@ -27,23 +27,23 @@
 
 	> h2 {
 		@mixin font-title;
-		font-size: var(--text-3xl);
+		font-size: var(--text-fluid-xl);
 		margin-top: var(--size-8);
 		margin-bottom: var(--size-4);
 		scroll-margin-top: calc(var(--size-8) + var(--header-height));
 	}
 	> h3 {
 		@mixin font-title;
-		font-size: var(--text-2xl);
+		font-size: var(--text-fluid-lg);
 		margin-top: var(--size-8);
-		margin-bottom: var(--size-4);
+
 		scroll-margin-top: calc(var(--size-8) + var(--header-height));
 	}
 	> h4 {
 		@mixin font-title;
-		font-size: var(--text-2xl);
+		font-size: var(--text-fluid-lg);
 		margin-top: var(--size-8);
-		margin-bottom: var(--size-4);
+
 		scroll-margin-top: calc(var(--size-8) + var(--header-height));
 	}
 }
