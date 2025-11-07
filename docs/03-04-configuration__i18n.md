@@ -20,7 +20,7 @@ Once enabled any field could then be set as localized :
 text('content').localized()
 ```
 
-Your documents will get a locale property, and a locale parameter could then be used to retrieve your localized content:
+Your documents will get a locale property, that could then be used to retrieve your localized content:
 
 ```ts
 cont { docs } = await rime.collection('pages').find({ locale : 'en' })

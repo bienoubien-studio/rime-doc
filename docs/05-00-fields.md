@@ -189,8 +189,6 @@ const dateStart = date('start').table(2) // Set the column position only
 const dateEnd = date('end').table({
   // Optional cell component
   component : RenderDateEnd,
-  // Enable sorting
-  sort: true,
   // Column position
   position: 3
 })

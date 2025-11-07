@@ -21,11 +21,10 @@ The slug that is passed as the first argument of `Collection.create` must be uni
 A function that get the document as argument and return a string. When set this will generate a url property on documents.
 
 ### $hooks {{server-only}}
-User defined hooks for operations fine grained control.
+User defined hooks for operations fine grained control. [More](/docs/03-05-configuration__hooks.md)
 
 ```ts
 import { Collection, Hooks } from '$rime/config';
-import { RimeError } from '@bienbien/rime';
 
 const Posts = Collection.create('posts', {
   //...
