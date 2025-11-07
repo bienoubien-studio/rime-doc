@@ -104,7 +104,7 @@ export function convertPathToUri(filePath: string): string {
 	return filePath
 		.replace(/^\d+-\d*-?/, '') // Remove numeric prefix (e.g., '03-01-', '02-', '03-00-')
 		.replace(/__/g, '/') // Convert double underscores to forward slashes
-		.replace(/\.md$/, ''); // Remove .md extension
+		.replace(/\.md/, ''); // Remove .md extension
 }
 
 /**
