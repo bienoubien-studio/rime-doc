@@ -11,13 +11,12 @@
 <style>
 	td {
 		font-size: var(--text-sm);
-		padding: var(--size-3);
+		padding: var(--size-1);
 		padding-left: var(--size-1);
 	}
-
-	td:nth-child(2) {
+	td:first-child {
 		font-size: var(--text-xs);
-		color: oklch(var(--light-10) 0.2 var(--hue-primary));
-		font-family: var(--font-mono);
+		font-variation-settings: 'wght' 600;
+		font-family: 'geist-mono';
 	}
 </style>

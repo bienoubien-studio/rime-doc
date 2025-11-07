@@ -14,6 +14,7 @@ import { linkRenderer } from './renderers/link.js';
 import { orderedListRenderer } from './renderers/ordered-list.js';
 import { paragraphRenderer } from './renderers/paragraph.js';
 import { resourceRenderer } from './renderers/resource.js';
+import { tableRenderer } from './renderers/table.js';
 import { tagWarnRenderer } from './renderers/tag-warn.js';
 import { tagRenderer } from './renderers/tag.js';
 import { textRenderer } from './renderers/text.js';
@@ -36,15 +37,16 @@ export interface DocNode {
 
 // All renderers
 const allRenderers = [
-	boldRenderer,
-	codeRenderer,
 	resourceRenderer,
 	infoBlockRenderer,
 	bulletListRenderer,
 	orderedListRenderer,
 	codeBlockRenderer,
 	headingRenderer,
+	tableRenderer,
 	paragraphRenderer,
+	boldRenderer,
+	codeRenderer,
 	linkRenderer,
 	tagRenderer,
 	tagWarnRenderer,
@@ -96,7 +98,7 @@ function skipEmptyLines(markdown: string, cursor: number): number {
  */
 export async function markdownToJson(input: string): Promise<DocNode> {
 	const withoutLeading = input.replace(/^[\n\r\s]+/, '');
-	// console.log('Input:', withoutLeading);
+
 	const content = await parseMarkdown(withoutLeading, nodeRenderers);
 	return {
 		type: 'doc',

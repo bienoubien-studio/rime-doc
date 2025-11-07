@@ -68,10 +68,11 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--size-1);
 		background-color: var(--code-bg);
-		margin-bottom: var(--size-2);
+		margin-block: var(--size-2);
+		/*margin-bottom: var(--size-2);*/
 
 		header {
-			border-bottom: 1px solid var(--color-border);
+			border-bottom: 1px solid var(--color-bg);
 			padding: var(--size-3);
 			font-size: var(--text-xs);
 			color: oklch(var(--light-11) 0 0);

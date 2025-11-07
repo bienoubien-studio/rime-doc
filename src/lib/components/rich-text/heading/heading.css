@@ -1,0 +1,13 @@
+h2[data-anchor],
+h3[data-anchor] {
+	position: relative;
+	&:before {
+		content: '#';
+		opacity: 0.14;
+		font-size: 1rem;
+		top: 50%;
+		transform: translateY(-0.5rem);
+		position: absolute;
+		left: -1rem;
+	}
+}

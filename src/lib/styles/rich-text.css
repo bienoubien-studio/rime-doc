@@ -46,4 +46,8 @@
 
 		scroll-margin-top: calc(var(--size-8) + var(--header-height));
 	}
+
+	.card-resource {
+		margin-block: var(--size-4);
+	}
 }

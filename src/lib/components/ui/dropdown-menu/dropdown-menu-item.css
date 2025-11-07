@@ -4,6 +4,7 @@
 	cursor: pointer;
 	user-select: none;
 	align-items: center;
+	font-size: var(--text-fluid-sm);
 	gap: var(--size-2);
 	border-radius: var(--size-1);
 	outline: none;

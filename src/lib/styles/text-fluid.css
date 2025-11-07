@@ -34,7 +34,7 @@
 	--sm-local-max: var(--sm-max, 1.25rem);
 	/* MD fluid variables */
 	--md-local-base: var(--md-base, 0.9rem);
-	--md-local-grow: var(--md-grow, 0.4);
+	--md-local-grow: var(--md-grow, 0.36);
 	--md-local-max: var(--md-max, 1.5rem);
 	/* LG fluid variables */
 	--lg-local-base: var(--lg-base, 1.125rem);

@@ -35,7 +35,7 @@
 	--color-warn: oklch(var(--light-12) 0.1642 var(--hue-warn));
 	--color-input: oklch(var(--light-0) 0 0);
 
-	--color-border: oklch(var(--light-15) 0 200);
+	--color-border: oklch(var(--light-16) 0 200);
 	--color-ring: var(--color-primary);
 }
 

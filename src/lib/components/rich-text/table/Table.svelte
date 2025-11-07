@@ -9,3 +9,9 @@
 		{@render children?.()}
 	</tbody>
 </table>
+
+<style>
+	table {
+		margin-block: var(--size-2);
+	}
+</style>

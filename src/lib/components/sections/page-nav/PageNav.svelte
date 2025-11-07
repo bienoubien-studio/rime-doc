@@ -14,7 +14,6 @@
 
 	const { pageTitle, text }: Props = $props();
 
-	console.log(text);
 	let elements = $state<NodeListOf<HTMLHeadingElement>>();
 	let activeId = $state(str.slugify(pageTitle));
 	let visibleElements = new Set<Element>();
@@ -33,7 +32,7 @@
 				.map((node) => ({
 					label: node.content[0].text,
 					level: node.attrs.level - 2,
-					id: richTextJSONToText(node).replace(' ', '-')
+					id: richTextJSONToText(node).replaceAll(' ', '-').toLowerCase()
 				}))
 		];
 	});

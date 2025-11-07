@@ -7,7 +7,7 @@
 }
 
 @define-mixin font-title {
-	font-variation-settings: 'wght' 700;
+	font-variation-settings: 'wght' 600;
 	font-family: var(--font-sans);
 	line-height: 1;
 }

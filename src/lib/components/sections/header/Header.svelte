@@ -8,12 +8,11 @@
 	type Props = { border?: boolean };
 	const { border = false }: Props = $props();
 
-	const ModeIcon = $derived(
-		{
-			dark: Moon,
-			light: Sun
-		}[mode.current || 'light']
-	);
+	const icons = {
+		dark: Moon,
+		light: Sun
+	};
+	const ModeIcon = $derived(icons[mode.current || 'light']);
 </script>
 
 <header class:header--border={border}>
@@ -47,7 +46,11 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
-					<Button {...props} size="icon" variant="ghost" icon={ModeIcon}></Button>
+					{#if mode.current === 'light'}
+						<Button {...props} size="icon" variant="ghost" icon={Sun}></Button>
+					{:else}
+						<Button {...props} size="icon" variant="ghost" icon={Moon}></Button>
+					{/if}
 				{/snippet}
 				<span class="sr-only">Toggle theme</span>
 			</DropdownMenu.Trigger>

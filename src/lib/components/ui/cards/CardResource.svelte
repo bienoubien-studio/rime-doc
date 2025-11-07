@@ -46,6 +46,9 @@
 	}
 
 	.card-resource:hover {
+		border-color: oklch(from var(--color-border) calc(l * 0.97) c h);
+	}
+	.card-resource:hover:is(:global(.dark) .card-resource) {
 		border-color: oklch(from var(--color-border) calc(l * 1.2) c h);
 	}
 
