@@ -3,7 +3,7 @@
 		RenderRichText,
 		richTextJSONToText,
 		type RichTextNodeRendererProps
-	} from '@bienbien/rime/fields/rich-text';
+	} from 'rimecms/fields/rich-text';
 	import './heading.css';
 
 	const { node, components }: RichTextNodeRendererProps = $props();

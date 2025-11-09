@@ -16,7 +16,7 @@ export const load = async ({ locals, fetch }: ServerLoadEvent) => {
 
 	console.time('layout');
 	const nav = await rime.area('nav').find({ depth: 1 });
-	const version = await rime.cache.get('package', () => getPackageVersion('@bienbien/rime'));
+	const version = await rime.cache.get('package', () => getPackageVersion('rimecms'));
 	console.timeEnd('layout');
 
 	if (!nav) {

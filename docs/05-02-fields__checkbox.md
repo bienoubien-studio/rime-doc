@@ -1,7 +1,7 @@
 A checkbox input field.
 
 ```ts
-import { checkbox } from '@bienbien/rime/fields';
+import { checkbox } from 'rimecms/fields';
 
 const approved = checkbox('approved');
 ```

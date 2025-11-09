@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/public';
-import type { Link } from '@bienbien/rime/types';
+import type { Link } from 'rimecms/types';
 import { error, redirect, type ServerLoadEvent } from '@sveltejs/kit';
 
 export const load = async ({ locals, params, parent, url }: ServerLoadEvent) => {

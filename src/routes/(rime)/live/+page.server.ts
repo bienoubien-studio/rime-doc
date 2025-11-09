@@ -1,4 +1,4 @@
 
-import { pagesLoad } from '@bienbien/rime/panel';
+import { pagesLoad } from 'rimecms/panel';
 
 export const load = pagesLoad.live;

@@ -1,5 +1,5 @@
 
-import * as api from '@bienbien/rime/api';
+import * as api from 'rimecms/api';
 
 export const GET = api.collection.getById('pages')
 export const PATCH = api.collection.updateById('pages')

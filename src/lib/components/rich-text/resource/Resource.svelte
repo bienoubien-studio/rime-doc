@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CardResource from '$lib/components/ui/cards/CardResource.svelte';
-	import type { RichTextNodeRendererProps } from '@bienbien/rime/fields/rich-text';
+	import type { RichTextNodeRendererProps } from 'rimecms/fields/rich-text';
 
 	const { node }: RichTextNodeRendererProps = $props();
 	const resource = $derived(node.resource);

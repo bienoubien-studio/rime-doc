@@ -1,6 +1,6 @@
 
 <script>
-  import { Dashboard } from '@bienbien/rime/panel/client';
+  import { Dashboard } from 'rimecms/panel/client';
   const { data } = $props();
 </script>
 

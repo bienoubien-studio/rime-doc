@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/public';
 import { rime } from '$rime/config';
-import { adapterSqlite } from '@bienbien/rime/sqlite';
+import { adapterSqlite } from 'rimecms/sqlite';
 import { nav } from './nav.js';
 import { pages } from './pages.js';
 
@@ -9,7 +9,7 @@ export default rime({
 	collections: [pages],
 	areas: [nav],
 	$cache: {
-		isEnabled: () => false
+		isEnabled: () => true
 	},
 	siteUrl: env.PUBLIC_RIME_URL
 });

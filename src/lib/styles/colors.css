@@ -40,7 +40,7 @@
 }
 
 html.dark {
-	--color-bg: oklch(var(--light-5) 0 0);
+	--color-bg: oklch(var(--light-4) 0 0);
 	--color-bg--accent: oklch(var(--light-6) 0 0);
 	--color-fg: oklch(var(--light-16) 0 0);
 	--color-border: oklch(var(--light-7) 0 0);

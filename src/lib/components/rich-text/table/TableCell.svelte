@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RichTextNodeRendererProps } from '@bienbien/rime/fields/rich-text';
+	import type { RichTextNodeRendererProps } from 'rimecms/fields/rich-text';
 
 	const { node, children }: RichTextNodeRendererProps = $props();
 </script>
@@ -16,7 +16,6 @@
 	}
 	td:first-child {
 		font-size: var(--text-xs);
-		font-variation-settings: 'wght' 600;
 		font-family: 'geist-mono';
 	}
 </style>

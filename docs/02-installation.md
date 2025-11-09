@@ -7,7 +7,7 @@ npx sv create svelte my-app && cd my-app
 2. I**nstall rime** :
 
 ```bash
-npm install @bienbien/rime
+npm install rimecms
 ```
 
 3. Run the init command :
@@ -44,7 +44,7 @@ You can now visit the `/panel`, in which there will be nothing more than the bas
 // vite.config.ts
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { rime } from '@bienbien/rime/vite';
+import { rime } from 'rimecms/vite';
 
 export default defineConfig({
   plugins: [rime(), sveltekit()]
@@ -56,7 +56,7 @@ export default defineConfig({
 ```ts
 // src/hooks.server.ts
 import { sequence } from '@sveltejs/kit/hooks';
-import { handlers } from '@bienbien/rime';
+import { handlers } from 'rimecms';
 import config from './lib/config.generated/rime.config.server.js';
 
 export const handle = sequence(...(await handlers(config)));
@@ -92,8 +92,8 @@ export default defineConfig({
 ```ts
 // src/lib/+rime/rime.config.ts
 import { rime, Collection } from '$rime/config';
-import { text } from '@bienbien/rime/fields';
-import { sqliteAdapter } from '@bienbien/rime/sqlite'
+import { text } from 'rimecms/fields';
+import { sqliteAdapter } from 'rimecms/sqlite'
 
 const Pages = Collection.create('pages', {
   fields: [

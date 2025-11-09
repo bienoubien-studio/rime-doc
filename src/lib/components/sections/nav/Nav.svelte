@@ -6,9 +6,9 @@
 	const { nav }: Props = $props();
 </script>
 
-<div>
+<div class="nav-wrapper">
 	<nav>
-		{#each nav.main as group, index (index)}
+		{#each nav.main as group, index (group.id)}
 			{#if group._children.length}
 				<p class="nav-group-label">{group.label}</p>
 				<ul>
@@ -40,14 +40,19 @@
 </div>
 
 <style>
-	div {
+	.nav-wrapper {
 		height: calc(100vh - var(--header-height));
+		display: none;
+		@media (min-width: 768px) {
+			display: block;
+		}
 	}
+
 	nav {
 		--button-border-radius: var(--size-1);
 		padding: var(--size-12) var(--size-8);
 		position: fixed;
-		border-right: 1px solid var(--color-border);
+		/*border-right: 1px solid var(--color-border);*/
 		top: var(--header-height);
 		bottom: 0;
 		width: 240px;

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { richTextJSONToText } from '@bienbien/rime/fields/rich-text';
-	import { string as str } from '@bienbien/rime/util';
+	import { richTextJSONToText } from 'rimecms/fields/rich-text';
+	import { string as str } from 'rimecms/util';
 	import { TableOfContents } from '@lucide/svelte';
 	import type { JSONContent } from '@tiptap/core';
 
@@ -79,8 +79,8 @@
 	});
 </script>
 
-<div>
-	<aside>
+<aside class="page-nav">
+	<nav aria-label="On this page">
 		<h2><TableOfContents size="14" /> On this page</h2>
 		<ul>
 			{#each headings as item (item.id)}
@@ -91,10 +91,17 @@
 				</li>
 			{/each}
 		</ul>
-	</aside>
-</div>
+	</nav>
+</aside>
 
 <style lang="postcss">
+	.page-nav {
+		display: none;
+		@media (min-width: 1280px) {
+			display: block;
+		}
+	}
+
 	h2 {
 		@mixin font-title;
 		font-size: var(--text-fluid-sm);
@@ -103,7 +110,7 @@
 		align-items: center;
 		gap: var(--size-2);
 	}
-	aside {
+	nav {
 		position: sticky;
 		top: calc(var(--header-height) + var(--size-12));
 		padding: 0 var(--size-12);

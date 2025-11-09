@@ -1,7 +1,7 @@
 A slug input field.
 
 ```ts
-import { slug, text } from '@bienbien/rime/fields';
+import { slug, text } from 'rimecms/fields';
 import { Collection } from '$rime/config';
 
 const Pages = Collection.create('pages', {

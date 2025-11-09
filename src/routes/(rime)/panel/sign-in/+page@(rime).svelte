@@ -1,6 +1,6 @@
 
 <script lang="ts">
-  import { SignIn } from '@bienbien/rime/panel/auth/client';
+  import { SignIn } from 'rimecms/panel/auth/client';
   const { data } = $props();
 </script>
 

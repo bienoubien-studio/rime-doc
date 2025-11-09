@@ -10,7 +10,7 @@ npx sv create svelte my-app && cd my-app
 2. Install **rime** :
 
 \`\`\`bash
-npm install @bienbien/rime
+npm install rimecms
 \`\`\`
 
 3. Run the init command :
@@ -117,7 +117,7 @@ const expected = [
 		},
 		content: [
 			{
-				text: 'npm install @bienbien/rime',
+				text: 'npm install rimecms',
 				type: 'text'
 			}
 		],

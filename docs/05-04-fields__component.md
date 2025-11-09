@@ -1,7 +1,7 @@
 Display a custom component.
 
 ```ts
-import { component } from '@bienbien/rime/fields';
+import { component } from 'rimecms/fields';
 import { Collection } from '$rime/config';
 
 const Pages = Collection.create('pages', {
@@ -26,7 +26,7 @@ An example component:
 
 ```svelte
 <script lang="ts">
-	import type { DocumentFormContext } from '@bienbien/rime/types';
+	import type { DocumentFormContext } from 'rimecms/types';
 	import { Link } from '@lucide/svelte';
 
 	const { form }: { form: DocumentFormContext } = $props();

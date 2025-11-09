@@ -1,5 +1,5 @@
 import { Area } from '$rime/config';
-import { link, text, tree } from '@bienbien/rime/fields';
+import { link, text, tree } from 'rimecms/fields';
 
 export const nav = Area.create('nav', {
 	fields: [

@@ -1,7 +1,7 @@
 A toggle input field.
 
 ```ts
-import { toggle } from '@bienbien/rime/fields';
+import { toggle } from 'rimecms/fields';
 
 const approved = toggle('approved');
 ```

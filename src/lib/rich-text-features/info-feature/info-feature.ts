@@ -1,4 +1,4 @@
-import type { RichTextFeature, RichTextFeatureNode } from '@bienbien/rime/types';
+import type { RichTextFeature, RichTextFeatureNode } from 'rimecms/types';
 import { Info } from '@lucide/svelte';
 import { mergeAttributes } from '@tiptap/core';
 import Blockquote from '@tiptap/extension-blockquote';

@@ -1,6 +1,6 @@
 
 <script>
-  import { Collection } from '@bienbien/rime/panel/client'
+  import { Collection } from 'rimecms/panel/client'
   const { data } = $props()
 </script>
 <Collection {data} slug='staff' />

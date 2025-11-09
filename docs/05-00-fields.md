@@ -54,7 +54,7 @@ All non-presentational fields (all except `separator`, `component` and `tabs` fi
 Field hook triggered before a read operation.
 
 ```ts
-import { textarea } from '@bienbien/rime';
+import { textarea } from 'rimecms';
 
 const intro = textarea('intro').$beforeRead((value, context) => {
   return value.replace('\n', '<br/>')
@@ -65,7 +65,7 @@ const intro = textarea('intro').$beforeRead((value, context) => {
 Field hook triggered before a create/update operation.
 
 ```ts
-import { number } from '@bienbien/rime';
+import { number } from 'rimecms';
 
 const stock = number('stock').$beforeSave((value, context) => {
   const { event, documentId } = context
@@ -81,7 +81,7 @@ const stock = number('stock').$beforeSave((value, context) => {
 Field hook triggered before the validate function runs.
 
 ```ts
-import { time } from '@bienbien/rime';
+import { time } from 'rimecms';
 
 const start = text('start')
   .beforeValidate((value => {
@@ -97,7 +97,7 @@ const start = text('start')
 Whether to display the field in the admin panel.
 
 ```ts
-import { toggle, text } from '@bienbien/rime';
+import { toggle, text } from 'rimecms';
 
 const fields = [
   toggle('isHome'),
@@ -109,7 +109,7 @@ const fields = [
 Deep clone a field.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const sharedTitle = text('title').label('Title').placeholder('Post title').required()
 const optionalTitle = sharedTitle.clone().required(false)
@@ -119,7 +119,7 @@ const optionalTitle = sharedTitle.clone().required(false)
 Whether the field should be displayed in the panel.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const metas = text('metas').hidden();
 ```
@@ -128,7 +128,7 @@ const metas = text('metas').hidden();
 Additional information to display with the field.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const description = text('description').hint('Around 110/130 characters in length');
 ```
@@ -137,7 +137,7 @@ const description = text('description').hint('Around 110/130 characters in lengt
 A custom field label.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const intro = text('intro').label('Introduction');
 ```
@@ -146,7 +146,7 @@ const intro = text('intro').label('Introduction');
 Set a field as localized. More on [i18n](/docs/03-04-configuration__i18n.md).
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const title = text('title').localized()
 ```
@@ -155,7 +155,7 @@ const title = text('title').localized()
 Client-side field hook triggered whenever the field value changes.
 
 ```ts
-import { text, time } from '@bienbien/rime';
+import { text, time } from 'rimecms';
 
 const fields = [
   time('start').onChange((value, context) => {
@@ -173,7 +173,7 @@ const fields = [
 Sets the field as required. An empty field without a default value will return an error on update/create operations.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const title = text('title').required()
 ```
@@ -182,7 +182,7 @@ const title = text('title').required()
 Table configuration for the collection table. Has no effect on areas fields.
 
 ```ts
-import { date } from '@bienbien/rime'
+import { date } from 'rimecms'
 import RenderDateEnd from 'RenderDateEnd.svelte'
 
 const dateStart = date('start').table(2) // Set the column position only
@@ -198,7 +198,7 @@ const dateEnd = date('end').table({
 A custom validation function that **replaces** the default one. Returns either `true` for a valid value or a string representing the error. Called on both server and client.
 
 ```ts
-import { text } from '@bienbien/rime';
+import { text } from 'rimecms';
 
 const title = text('title').validate((value, metas) => {
   return value && typeof value === 'string' && value.length > 12 || 'Title should be at least 12 characters in length'

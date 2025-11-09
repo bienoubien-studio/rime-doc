@@ -98,7 +98,7 @@
 	}
 
 	.button--size-lg {
-		--button-border-radius: var(--border-radius, var(--size-8));
+		--button-border-radius: var(--border-radius, var(--size-2));
 		--internal-px: var(--px, var(--size-8));
 		height: var(--size-12);
 		padding: var(--size-2) var(--internal-px);
@@ -132,8 +132,16 @@
 	}
 
 	/**************************************/
+	/* Spot
+	/**************************************/
+
+	.button--spot {
+	}
+
+	/**************************************/
 	/* Gradient
 	/**************************************/
+
 	.button--gradient::before {
 		position: absolute;
 		inset: 0;
@@ -163,12 +171,12 @@
 	/* Default
 	/**************************************/
 	.button--default {
-		--internal-color: var(--color, var(--color-primary-fg));
-		background-color: var(--color-primary);
-		color: var(--color-primary-fg);
+		background-color: oklch(from var(--color-fg) l c h / 0.93);
+		color: var(--color-bg);
 	}
 	.button--default:hover {
-		background-color: color-mix(in oklch var(--color-primary) 90%, transparent);
+		background-color: var(--color-fg);
+		box-shadow: 0 0 1px 5px oklch(from var(--color-fg) l c h / 0.2);
 	}
 	.button--default:disabled {
 		background-color: oklch(var(--light-11) 0 0);

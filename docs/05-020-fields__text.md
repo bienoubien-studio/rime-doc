@@ -1,7 +1,7 @@
 A simple text input field.
 
 ```ts
-import { text } from '@bienbien/rime/fields';
+import { text } from 'rimecms/fields';
 
 const title = text('title');
 ```

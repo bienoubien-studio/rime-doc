@@ -1,7 +1,7 @@
 A time input field.
 
 ```ts
-import { time } from '@bienbien/rime/fields';
+import { time } from 'rimecms/fields';
 
 const eventStart = time('eventStart');
 ```

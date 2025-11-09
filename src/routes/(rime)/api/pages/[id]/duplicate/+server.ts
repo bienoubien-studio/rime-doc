@@ -1,4 +1,4 @@
 
-import * as api from '@bienbien/rime/api';
+import * as api from 'rimecms/api';
 
 export const POST = api.collection.duplicate('pages')

@@ -1,7 +1,7 @@
 A simple textarea field.
 
 ```ts
-import { textarea } from '@bienbien/rime/fields';
+import { textarea } from 'rimecms/fields';
 
 const intro = textarea('intro');
 ```

@@ -6,7 +6,7 @@ import { tagWarnMarkFeature } from '$lib/rich-text-features/tag-warn/tag-warn-fe
 import { tagMarkFeature } from '$lib/rich-text-features/tag/tag-feature';
 import { warnBlockFeature } from '$lib/rich-text-features/warn-feature/warn-feature';
 import { Collection, Hooks } from '$rime/config';
-import { richText, slug, tab, tabs, text, textarea, toggle } from '@bienbien/rime/fields';
+import { richText, slug, tab, tabs, text, textarea, toggle } from 'rimecms/fields';
 import {
 	blockquote,
 	bold,
@@ -16,7 +16,7 @@ import {
 	link,
 	orederedList,
 	resource
-} from '@bienbien/rime/fields/rich-text';
+} from 'rimecms/fields/rich-text';
 
 const refreshData = Hooks.afterUpdate(async (args) => {
 	args.event.locals.rime.sse.broadcast({

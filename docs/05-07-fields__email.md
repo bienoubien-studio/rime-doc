@@ -1,7 +1,7 @@
 A text input field with email validation function.
 
 ```ts
-import { email } from '@bienbien/rime/fields';
+import { email } from 'rimecms/fields';
 
 const field = email('email');
 ```

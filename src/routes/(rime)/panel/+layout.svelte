@@ -1,6 +1,6 @@
 
 <script>
-	import { Panel } from '@bienbien/rime/panel/client';
+	import { Panel } from 'rimecms/panel/client';
 
 	import config from '$lib/+rime.generated/rime.config.js';
 	const { children, data } = $props();

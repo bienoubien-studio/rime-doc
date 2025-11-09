@@ -1,7 +1,7 @@
 A date input field.
 
 ```ts
-import { date } from '@bienbien/rime/fields';
+import { date } from 'rimecms/fields';
 
 const eventStart = date('eventStart');
 ```

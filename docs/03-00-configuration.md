@@ -5,8 +5,8 @@ The configuration is the core of **Rime**, this is where you configure how your 
 ```ts
 // src/lib/+rime/rime.config.ts
 import { rime, Collection } from '$rime/config';
-import { text } from '@bienbien/rime/fields';
-import { sqliteAdapter } from '@bienbien/rime/sqlite'
+import { text } from 'rimecms/fields';
+import { sqliteAdapter } from 'rimecms/sqlite'
 
 const Pages = Collection.create('pages', {
   fields: [
@@ -28,7 +28,7 @@ There are two document prototypes : collections and areas. Collections are repea
 
 ```ts
 import { Collection, Area } from '$rime/config';
-import { text, toggle } from '@bienbien/rime/fields';
+import { text, toggle } from 'rimecms/fields';
 
 const Settings = Area.create('settings', {
   fields: [

@@ -1,10 +1,35 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Header from '$lib/components/sections/header/Header.svelte';
 	import Button from '$lib/components/ui/button/Button.svelte';
-	import type { WithRelationPopulated } from '@bienbien/rime/types';
+	import type { WithRelationPopulated } from 'rimecms/types';
 
 	type Props = { doc: WithRelationPopulated<PagesDoc>; version: string | null };
 	const { doc, version }: Props = $props();
+
+	let scrollY = $state(0);
+	let previewImgScale = $state();
+
+	$effect(() => {
+		if (browser) {
+			initScroll();
+		}
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
+
+	function initScroll() {
+		window.addEventListener('scroll', handleScroll);
+	}
+
+	function handleScroll() {
+		requestAnimationFrame(onAnimationFrame);
+	}
+
+	function onAnimationFrame() {
+		scrollY = window.scrollY;
+		let scaleValue = 1 - (0.15 * scrollY) / window.innerHeight;
+		previewImgScale = Math.min(Math.max(scaleValue, 0.93), 1);
+	}
 </script>
 
 <svelte:head>
@@ -13,49 +38,66 @@
 
 <Header />
 
-<section>
+<section class="hero">
 	<header>
-		<aside>
-			<a class="git-link" href="https://github.com/bienoubien-studio/rime" target="_blank">
-				v{version}
-				View on github
-			</a>
-		</aside>
-		<h1>
-			{@html doc.attributes.longTitle
-				?.replace('\n', '<br/>')
-				.replace('{', '<strong>')
-				.replace('}', '</strong>')}
-		</h1>
-		<p>{doc.attributes.summary}</p>
 		<div>
-			<Button href="/docs/introduction" size="lg" variant="gradient">Get started</Button>
+			<aside>
+				<a class="hero__git" href="https://github.com/bienoubien-studio/rime" target="_blank">
+					v{version}
+					View on github
+				</a>
+			</aside>
+			<h1>
+				{@html doc.attributes.longTitle
+					?.replace('\n', '<br/>')
+					.replace('{', '<strong>')
+					.replace('}', '</strong>')}
+			</h1>
+			<p>{doc.attributes.summary}</p>
+			<div>
+				<Button href="/docs/introduction" size="lg">Get started</Button>
+			</div>
 		</div>
 	</header>
-	<img src="/rime-preview.jpg" alt="preview of the admin panel" />
+	<img
+		style="--scale:{previewImgScale}"
+		class="hero__preview"
+		src="/rime-preview.jpg"
+		alt="preview of the admin panel"
+	/>
+</section>
+
+<section>
+	<p>You own your data</p>
+	<p>Built-in i18n</p>
+	<p>Typescript</p>
+	<p>Many fields type</p>
+	<p>Version</p>
 </section>
 
 <style lang="postcss">
-	section {
-		height: 70vh;
+	.hero {
+		margin-top: calc(-1 * var(--header-height));
+		/*height: 150vh;*/
 		display: grid;
 		place-content: center;
 	}
+
 	header {
-		margin: var(--size-12) auto;
+		margin: var(--size-12) auto 0 auto;
 		text-align: center;
-		justify-content: center;
-		display: grid;
-		gap: var(--size-6);
+		height: 70vh;
 		max-width: 700px;
-		position: relative;
+		> div {
+			place-content: center;
+			height: 100%;
+			display: grid;
+			gap: var(--size-6);
+		}
 	}
 	img {
-		position: absolute;
-		inset: 0;
-		top: 65vh;
-		object-fit: contain;
-		z-index: -1;
+		clip-path: rect(6.6vw 95vw 59.25vw 5vw round 10px);
+		transform: translateY(-15vh) scale(var(--scale, 1));
 	}
 	aside {
 		font-size: var(--text-sm);
@@ -65,14 +107,14 @@
 		:global(strong) {
 			@mixin font-brand;
 		}
-		font-size: var(--text-8xl);
+		font-size: var(--text-fluid-5xl);
 	}
 	p {
 		opacity: 0.6;
 		max-width: 600px;
 		font-size: var(--text-lg);
 	}
-	.git-link {
+	.hero__git {
 		border-radius: var(--size-6);
 		padding: var(--size-1) var(--size-3);
 		display: inline-block;

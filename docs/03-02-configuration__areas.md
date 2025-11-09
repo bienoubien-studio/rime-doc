@@ -2,7 +2,7 @@ An area is a singleton document type, defined by its `slug`, its fields and some
 
 ```ts
 import { Area } from '$rime/config';
-import { text, toggle } from '@bienbien/rime/fields';
+import { text, toggle } from 'rimecms/fields';
 
 const Settings = Area.create('settings', {
   fields: [

@@ -2,8 +2,8 @@ A collection is a repeatable document type, defined by its `slug`, its fields an
 
 ```ts
 import { Collection } from '$rime/config';
-import { text, richText } from '@bienbien/rime/fields';
-import { bold, link } from '@bienbien/rime/fields/rich-text';
+import { text, richText } from 'rimecms/fields';
+import { bold, link } from 'rimecms/fields/rich-text';
 
 const Posts = Collection.create('posts', {
   fields: [

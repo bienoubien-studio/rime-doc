@@ -2,7 +2,7 @@ import type {
 	RichTextFeature,
 	RichTextFeatureMark,
 	RichTextFeatureNode
-} from '@bienbien/rime/types';
+} from 'rimecms/types';
 import { Code as Icon } from '@lucide/svelte';
 import Code from '@tiptap/extension-code';
 import CodeBlock from '@tiptap/extension-code-block';

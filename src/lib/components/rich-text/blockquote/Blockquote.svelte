@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type RichTextNodeRendererProps } from '@bienbien/rime/fields/rich-text';
+	import { type RichTextNodeRendererProps } from 'rimecms/fields/rich-text';
 
 	const { node, children }: RichTextNodeRendererProps = $props();
 

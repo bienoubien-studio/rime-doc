@@ -1,4 +1,4 @@
-import type { RichTextFeature } from '@bienbien/rime/types';
+import type { RichTextFeature } from 'rimecms/types';
 import { Info } from '@lucide/svelte';
 import { TableKit } from '@tiptap/extension-table';
 import './table.css';

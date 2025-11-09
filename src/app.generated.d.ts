@@ -1,6 +1,6 @@
-import '@bienbien/rime';
+import 'rimecms';
 import type { Session } from 'better-auth';
-import type { BaseDoc, Navigation, User } from '@bienbien/rime/types'
+import type { BaseDoc, Navigation, User } from 'rimecms/types'
 
 
 export type RelationValue<T> =
@@ -114,7 +114,7 @@ declare global {
     }
   }
 }
-declare module '@bienbien/rime' {
+declare module 'rimecms' {
 	interface RegisterCollection {
 		'staff': StaffDoc
 		'pages': PagesDoc;

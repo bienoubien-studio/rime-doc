@@ -1,5 +1,5 @@
 {
-	"name": "@bienbien/rime-doc",
+	"name": "rimecms-doc",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -45,7 +45,7 @@
 		"@bien-bien/css-reset": "^0.1.1",
 		"@bien-bien/css-sizes": "^0.1.0",
 		"@bienbien/css-fluid-text": "^0.1.1",
-		"@bienbien/rime": "^0.20.1",
+		"rimecms": "^0.20.1",
 		"@bienbien/trycatch": "^1.0.0",
 		"@lucide/svelte": "^0.510.0",
 		"@tiptap/core": "^3.9.0",

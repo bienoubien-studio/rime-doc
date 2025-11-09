@@ -17,7 +17,7 @@ importers:
       '@bienbien/css-fluid-text':
         specifier: ^0.1.1
         version: 0.1.1
-      '@bienbien/rime':
+      'rimecms':
         specifier: ^0.20.1
         version: 0.20.1(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       '@bienbien/trycatch':
@@ -200,7 +200,7 @@ packages:
   '@bienbien/css-fluid-text@0.1.1':
     resolution: {integrity: sha512-mUM67mduCQas4uSzSggcJ4mBaxP1ZAzSVCT7+fGS56OVTx2QxABHIGnDD4DSwxs4d27NJNdniUUqU0z8ZbZuKA==}
 
-  '@bienbien/rime@0.20.1':
+  'rimecms@0.20.1':
     resolution: {integrity: sha512-aqIMZM11nO1JqhpJo1r6hezoNv+d9KlKrW1eK7+On+Bpu99nnQkADYz7ReE8SqmRKUf9w+BoC0qMShL4zE6Kaw==}
     hasBin: true
     peerDependencies:
@@ -3391,7 +3391,7 @@ snapshots:
 
   '@bienbien/css-fluid-text@0.1.1': {}
 
-  '@bienbien/rime@0.20.1(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
+  'rimecms@0.20.1(@sveltejs/kit@2.43.5(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6)))(drizzle-kit@0.31.5)(kysely@0.28.8)(postcss@8.5.6)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(svelte@5.39.6)(vite@7.1.7(@types/node@22.15.17)(tsx@4.20.6))(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
     dependencies:
       '@babel/generator': 7.28.5
       '@babel/types': 7.28.5

@@ -1,4 +1,4 @@
-import type { RichTextFeature, RichTextFeatureMark } from '@bienbien/rime/types';
+import type { RichTextFeature, RichTextFeatureMark } from 'rimecms/types';
 import { ShieldQuestion } from '@lucide/svelte';
 import { Mark, mergeAttributes } from '@tiptap/core';
 import './tag-feature.css';

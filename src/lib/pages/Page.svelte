@@ -12,11 +12,11 @@
 	import Header from '$lib/components/sections/header/Header.svelte';
 	import Nav from '$lib/components/sections/nav/Nav.svelte';
 	import PageNav from '$lib/components/sections/page-nav/PageNav.svelte';
-	import CardPagination from '$lib/components/ui/cards/CardPagination.svelte';
+	import PagePagination from '$lib/components/sections/page-pagination/Pagination.svelte';
 	import RenderRichText from './RenderRichText.svelte';
-	// import { RenderRichText } from '@bienbien/rime/fields/rich-text';
-	import type { WithRelationPopulated } from '@bienbien/rime/types';
-	import { string } from '@bienbien/rime/util';
+	// import { RenderRichText } from 'rimecms/fields/rich-text';
+	import type { WithRelationPopulated } from 'rimecms/types';
+	import { string } from 'rimecms/util';
 
 	type Props = { doc: WithRelationPopulated<PagesDoc>; pagination: Pagination; nav: NavDoc };
 
@@ -32,53 +32,37 @@
 <div class="page">
 	<Nav {nav} />
 
-	<main>
-		<h1 id={string.slugify(doc.title)}>{doc.attributes.longTitle || doc.title}</h1>
+	<div class="page__center">
+		<main>
+			<h1 id={string.slugify(doc.title)}>{doc.attributes.longTitle || doc.title}</h1>
 
-		<div class="render-rich-text">
-			<RenderRichText
-				json={doc.content.text}
-				components={{
-					resource: Resource,
-					codeBlock: CodeBlock,
-					heading: Heading,
-					code: Code,
-					warnBlock: Blockquote,
-					infoBlock: Blockquote,
-					tag: Tag,
-					'tag-warn': Tag,
-					table: Table,
-					tableRow: TableRow,
-					tableCell: TableCell,
-					tableHeader: TableHeader
-				}}
-			/>
-		</div>
-
-		<aside class="page-related">
-			{#if pagination.prev}
-				<CardPagination
-					align="left"
-					uptitle="Previous page"
-					title={pagination.prev.title}
-					link={pagination.prev.url}
+			<div class="render-rich-text">
+				<RenderRichText
+					json={doc.content.text}
+					components={{
+						resource: Resource,
+						codeBlock: CodeBlock,
+						heading: Heading,
+						code: Code,
+						warnBlock: Blockquote,
+						infoBlock: Blockquote,
+						tag: Tag,
+						'tag-warn': Tag,
+						table: Table,
+						tableRow: TableRow,
+						tableCell: TableCell,
+						tableHeader: TableHeader
+					}}
 				/>
-			{:else}
-				<div></div>
-			{/if}
+			</div>
 
-			{#if pagination.next}
-				<CardPagination
-					align="right"
-					uptitle="Next page"
-					title={pagination.next.title}
-					link={pagination.next.url}
-				/>
-			{/if}
-		</aside>
-	</main>
+			<PagePagination {pagination} />
+		</main>
+	</div>
 
-	<PageNav pageTitle={doc.title} text={doc.content.text} />
+	{#key doc.id}
+		<PageNav pageTitle={doc.title} text={doc.content.text} />
+	{/key}
 	<!-- <Font /> -->
 </div>
 
@@ -90,25 +74,34 @@
 	}
 	.page {
 		display: grid;
-		grid-template-columns: 320px 1fr 320px;
-		max-width: 1640px;
+		grid-template-columns: var(--header-gutter) minmax(0, 1fr) var(--header-gutter);
+		max-width: 1920px;
+		width: 100vw;
+
+		@media (min-width: 768px) {
+			grid-template-columns: 280px minmax(0, 1fr) var(--size-4);
+		}
+		@media (min-width: 1280px) {
+			grid-template-columns: 320px minmax(0, 1fr) 320px;
+		}
 	}
+	.page__center {
+		container-type: inline-size;
+		grid-column: 2 / -2;
+	}
+
 	main {
 		margin-top: var(--size-12);
 		margin-bottom: var(--size-12);
-		margin-left: var(--size-12);
-	}
-	.render-rich-text {
-		margin-top: var(--size-8);
-	}
-	.page-related {
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		margin-top: var(--size-12);
-		> * {
-			flex-grow: 0;
-			flex-shrink: none;
+		@container (min-width:800px) {
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
 		}
+	}
+
+	.render-rich-text {
+		width: 100%;
+		margin-top: var(--size-8);
 	}
 </style>

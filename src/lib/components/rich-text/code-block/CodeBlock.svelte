@@ -68,8 +68,9 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--size-1);
 		background-color: var(--code-bg);
-		margin-block: var(--size-2);
+		margin-block: var(--size-4);
 		/*margin-bottom: var(--size-2);*/
+		position: relative;
 
 		header {
 			border-bottom: 1px solid var(--color-bg);
@@ -79,10 +80,11 @@
 		}
 
 		.code-box {
+			max-width: 100%;
+			overflow-x: auto;
 			font-size: var(--text-xs);
 			padding: var(--size-4) var(--size-3);
 			display: block;
-			position: relative;
 		}
 
 		:global {

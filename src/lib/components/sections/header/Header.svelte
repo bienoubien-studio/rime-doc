@@ -7,12 +7,6 @@
 
 	type Props = { border?: boolean };
 	const { border = false }: Props = $props();
-
-	const icons = {
-		dark: Moon,
-		light: Sun
-	};
-	const ModeIcon = $derived(icons[mode.current || 'light']);
 </script>
 
 <header class:header--border={border}>
@@ -61,27 +55,43 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
+
+	<!-- <div class="header__bg"></div> -->
 </header>
 
 <style>
 	:root {
+		--header-gutter: var(--size-7);
 		--header-height: var(--size-16);
 	}
 	header {
 		height: var(--header-height);
 		z-index: 10;
-		padding: 0 var(--size-7);
+		padding: 0 var(--header-gutter);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--size-8);
 		position: sticky;
 		top: 0;
-		background-color: var(--color-bg);
 	}
 	.header--border {
 		border-bottom: 1px solid var(--color-border);
 	}
+
+	.header__bg {
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		--gradient: linear-gradient(
+			to bottom,
+			hsl(from var(--color-bg) h s l),
+			/*hsl(from var(--color-bg) h s l) 50%,*/ hsl(from var(--color-bg) h s l / 0) 100%
+		);
+		background-image: var(--gradient);
+		backdrop-filter: blur(8px);
+	}
+
 	.header__left {
 		display: flex;
 		@mixin font-brand;
